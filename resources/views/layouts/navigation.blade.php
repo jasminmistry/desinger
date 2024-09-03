@@ -34,7 +34,7 @@
                         @can('view users')
                             <li>
                                 <a href="{{ route('user.index') }}"
-                                    class="flex text-default-700 font-medium text-sm capitalize px-[10px] py-3 rounded cursor-pointer transition-all duration-100 hover:bg-primary hover:text-primary-foreground group {{ Request::routeIs('user.index') ? 'bg-primary text-primary-foreground' : '' }}">
+                                    class="flex text-default-700 font-medium text-sm capitalize px-[10px] py-3 rounded cursor-pointer duration-100 hover:bg-primary hover:text-primary-foreground group {{ Request::routeIs('user.index') ? 'bg-primary text-primary-foreground' : '' }}">
                                     <div class="flex-1  gap-3 flex items-start"><span
                                             class="inline-flex items-center  text-lg "><svg
                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 32 32"
@@ -60,7 +60,7 @@
                         @endcan
                         <li>
                             <a href="{{ route('order.index') }}"
-                                class="flex text-default-700 font-medium text-sm capitalize px-[10px] py-3 rounded cursor-pointer transition-all duration-100 hover:bg-primary hover:text-primary-foreground group {{ Request::routeIs('order.index') ? 'bg-primary text-primary-foreground' : '' }}">
+                                class="flex text-default-700 font-medium text-sm capitalize px-[10px] py-3 rounded cursor-pointer duration-100 hover:bg-primary hover:text-primary-foreground group {{ Request::routeIs('order.index') ? 'bg-primary text-primary-foreground' : '' }}">
                                 <div class="flex-1  gap-3 flex items-start"><span
                                         class="inline-flex items-center  text-lg "><svg
                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 32 32"
@@ -96,7 +96,7 @@
                                                     opacity="0.35"></path>
                                             </svg></span><span
                                             class="flex-grow truncate">{{ __('Digitizing Service') }}</span></div>
-                                    <div class="flex-none transition-all duration-200 text-default-500"><svg
+                                    <div class="flex-none duration-200 text-default-500"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 ">
@@ -149,7 +149,7 @@
                                                     opacity="0.35"></path>
                                             </svg></span><span class="flex-grow truncate">{{ __('Patch') }}</span>
                                     </div>
-                                    <div class="flex-none transition-all duration-200 text-default-500"><svg
+                                    <div class="flex-none duration-200 text-default-500"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 ">
@@ -203,7 +203,7 @@
                                                     opacity="0.35"></path>
                                             </svg></span><span
                                             class="flex-grow truncate">{{ __('Vector Service') }}</span></div>
-                                    <div class="flex-none transition-all duration-200 text-default-500"><svg
+                                    <div class="flex-none duration-200 text-default-500"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -257,7 +257,7 @@
                                                     opacity="0.35"></path>
                                             </svg></span><span
                                             class="flex-grow truncate">{{ __('Other Service') }}</span></div>
-                                    <div class="flex-none transition-all duration-200 text-default-500"><svg
+                                    <div class="flex-none duration-200 text-default-500"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

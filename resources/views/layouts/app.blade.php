@@ -13,6 +13,8 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
+    @livewireStyles
+    @livewireScripts
     @vite(['resources/css/globals.scss', 'resources/js/app.js'])
 </head>
 
@@ -35,5 +37,7 @@
             </div>
         </div>
     </div>
+    <x-slot:footer class="text-sm">
+    </x-slot>
 </body>
 </html>

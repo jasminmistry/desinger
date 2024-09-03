@@ -1,4 +1,4 @@
-<div class="flex">
+<div class="flex" @click="Livewire.dispatchTo('show-order', 'show_order', { orderId: '{{ $order->id }}' })">
     <div dir="ltr" class="relative overflow-hidden h-full"
         style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;">
         <style>

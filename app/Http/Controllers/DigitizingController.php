@@ -9,9 +9,11 @@ use App\Http\Requests\UpdateDigitizingRequest;
 use App\Models\Digitizing;
 use App\Models\Order;
 use App\Models\OrderDocument;
+use App\Models\User;
 use App\Services\DigitizingService;
 use App\Services\OrderDocumentService;
 use App\Services\OrderService;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
@@ -24,17 +26,20 @@ class DigitizingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
-        $digitizing = Digitizing::with('user');
+        $orders = Order::with(['user'])->where('order_type', OrderType::DIGITIZING->value);
         if ($user->hasPermissionTo('view orders')) {
         } else if ($user->hasPermissionTo('view own orders')) {
-            $digitizing->where('user_id', $user->id);
+            $orders->where('user_id', $user->id);
         }
+        $orders->orderBy('created_at', 'asc');
+        $view = $request->get('view', 'kanban');
 
-        return view('digitizing.list', [
-            'digitizing' => $digitizing->paginate(10),
+        return view('order.list', [
+            'orders' => $orders->paginate(10),
+            'view' => $view
         ]);
     }
 
@@ -43,7 +48,10 @@ class DigitizingController extends Controller
      */
     public function create()
     {
-        return view('digitizing.create');
+        $user = (auth()->user());
+        return view('digitizing.create', [
+            'preference' => $user->preference()->first(),
+        ]);
     }
 
     /**

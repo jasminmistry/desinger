@@ -38,3 +38,6 @@
             {{ $orders->links() }}
         </div>
 </x-app-layout>
+<footer>
+    @livewire('showOrder', ['orderId' => ''])
+</footer>

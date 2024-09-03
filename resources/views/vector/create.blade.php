@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+    <div class="p-4 sm:p-8 bg-card shadow sm:rounded-lg">
         <div class="flex flex-wrap items-center gap-4 mb-1 border-b border-border ">
             <div class="flex-1">
                 <h2 class="text-xl font-medium text-default-700 mb-2">{{ __('Vector Order') }}</h2>

@@ -1,4 +1,5 @@
-<header class="z-50 has-sticky-header rounded-md xl:ml-[272px] sticky top-6" :class="sidebar? 'xl:ml-[248px]' : 'xl:ml-[72px]'">
+<header class="z-50 has-sticky-header rounded-md xl:ml-[272px] sticky top-6"
+    :class="sidebar ? 'xl:ml-[248px]' : 'xl:ml-[72px]'">
     <div class="xl:mx-10 mx-4">
         <div class="w-full bg-card/90 backdrop-blur-lg md:px-6 px-[15px] py-3 border-b">
             <div class="flex justify-between items-center h-full">
@@ -28,7 +29,8 @@
                                 class="inline-flex items-center justify-center text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none bg-transparent relative hover:bg-default-100 dark:hover:bg-default-200 data-[state=open]:bg-default-100 dark:data-[state=open]:bg-default-200 hover:text-primary text-default-500 dark:text-default-800 rounded-full md:h-9 md:w-9 h-8 w-8 ">
                                 <div class="ms-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 21"
-                                        class="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"  x-show="theme=='light'">
+                                        class="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+                                        x-show="theme=='light'">
                                         <path fill="currentColor"
                                             d="M10 15.592a5.093 5.093 0 1 0 0-10.185 5.093 5.093 0 0 0 0 10.185"></path>
                                         <g fill="currentColor" opacity="0.35">
@@ -37,7 +39,8 @@
                                             </path>
                                         </g>
                                     </svg><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        class="h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"  x-show="theme=='dark'">
+                                        class="h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+                                        x-show="theme=='dark'">
                                         <path fill="currentColor"
                                             d="M9 19c0 .84.13 1.66.37 2.42-3.84-1.33-6.74-4.86-7.04-8.99-.3-4.39 2.23-8.49 6.32-10.21 1.06-.44 1.6-.12 1.83.11.22.22.53.75.09 1.76a8.2 8.2 0 0 0-.67 3.28c.01 2.04.81 3.93 2.11 5.38A7.99 7.99 0 0 0 9 19">
                                         </path>
@@ -64,7 +67,7 @@
                                 <span class="mr-2">Light</span>
                             </x-dropdown-link>
 
-                            <x-dropdown-link @click="theme = 'dark'" class="flex" >
+                            <x-dropdown-link @click="theme = 'dark'" class="flex">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     class="w-5 h-5 mr-2">
                                     <path fill="currentColor"
@@ -83,7 +86,7 @@
                             <x-dropdown align="right" width="48">
                                 <x-slot name="trigger">
                                     <button
-                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-default-500 bg-card hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                                         <div>{{ Auth::user()->name }}</div>
 
                                         <div class="ms-1">
@@ -100,6 +103,9 @@
                                 <x-slot name="content">
                                     <x-dropdown-link :href="route('profile.edit')">
                                         {{ __('Profile') }}
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('profile.preference')">
+                                        {{ __('My Preferences') }}
                                     </x-dropdown-link>
 
                                     <!-- Authentication -->

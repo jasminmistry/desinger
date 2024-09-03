@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PreferenceUpdateRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -56,5 +57,19 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function preference(Request $request): View
+    {
+        return view('profile.edit-preference', [
+            'preference' => $request->user()->preference()->first(),
+        ]);
+    }
+
+    public function preferenceUpdate(PreferenceUpdateRequest $request): RedirectResponse
+    {
+        $request->user()->preference()->updateOrCreate(['user_id' => $request->user()->id], $request->validated());
+
+        return Redirect::route('profile.preference')->with('status', 'profile-updated');
     }
 }

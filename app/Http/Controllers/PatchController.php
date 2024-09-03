@@ -6,10 +6,12 @@ use App\Enums\OrderType;
 use App\Enums\Priority;
 use App\Http\Requests\StorePatchRequest;
 use App\Http\Requests\UpdatePatchRequest;
+use App\Models\Order;
 use App\Models\Patch;
 use App\Services\OrderDocumentService;
 use App\Services\OrderService;
 use App\Services\PatchService;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
@@ -22,9 +24,21 @@ class PatchController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = auth()->user();
+        $orders = Order::with(['user'])->where('order_type', OrderType::PATCH->value);
+        if ($user->hasPermissionTo('view orders')) {
+        } else if ($user->hasPermissionTo('view own orders')) {
+            $orders->where('user_id', $user->id);
+        }
+        $orders->orderBy('created_at', 'asc');
+        $view = $request->get('view', 'kanban');
+
+        return view('order.list', [
+            'orders' => $orders->paginate(10),
+            'view' => $view
+        ]);
     }
 
     /**

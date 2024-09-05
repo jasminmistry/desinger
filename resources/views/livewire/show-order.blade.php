@@ -1,7 +1,8 @@
 <div>
     @if ($orderId)
-        <div role="dialog" id="radix-:r44:" x-data="{ open: true, toggle() { $el.remove(); } }" aria-describedby="radix-:r46:"
-            aria-labelledby="radix-:r45:" data-state="open" x-show="open"
+        <div role="dialog" wire:key="opopup-{{ $orderDetails->id }}" x-data="{ open: true, toggle() { open = !open; } }" x-show="open"
+            id="opopup-{{ $orderDetails->id }}" aria-describedby="radix-:r46:" aria-labelledby="radix-:r45:"
+            data-state="open" x-show="open"
             class="fixed z-[999] gap-4 bg-card shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500 inset-y-0 right-0 h-full border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right max-w-sm w-[85%] md:max-w-[1200px] p-0"
             tabindex="-1" style="pointer-events: auto;">
             <div
@@ -9,7 +10,18 @@
                 <div class="flex items-center gap-2">
                     <div class="text-sm font-medium text-default-600 bg-default-100 py-[2px] px-3 rounded">
                         {{ $orderDetails->service->name }}</div>
-                    <div class="w-fit px-1"><button type="button" role="combobox" aria-controls="radix-:r5i:"
+                    <div class="w-fit px-1">
+                        <select id="status" name="status"
+                            class="w-full px-3 flex [&amp;>svg]:h-5 [&amp;>svg]:w-5 justify-between items-center read-only:bg-background disabled:cursor-not-allowed disabled:opacity-50 transition duration-300 border-default-300 text-default-500 focus:outline-none focus:border-default-500/50 disabled:bg-default-200 placeholder:text-accent-foreground/50 [&amp;>svg]:stroke-default-600 border rounded-lg text-sm h-10">
+                            @foreach (\App\Enums\OrderStatus::cases() as $status)
+                                <option value="{{ $status->value }}"
+                                    @if ($status->value == $orderDetails->order_status) {{ 'selected=selected' }}
+                                @else
+                                    {{ '' }} @endif>
+                                    {{ $status->label() }}</option>
+                            @endforeach
+                        </select>
+                        {{-- <button type="button" role="combobox" aria-controls="radix-:r5i:"
                             aria-expanded="false" aria-autocomplete="none" dir="ltr" data-state="closed"
                             data-placeholder=""
                             class="w-full px-3 flex [&amp;>svg]:h-5 [&amp;>svg]:w-5 justify-between items-center read-only:bg-background disabled:cursor-not-allowed disabled:opacity-50 transition duration-300 border-default-300 text-default-500 focus:outline-none focus:border-default-500/50 disabled:bg-default-200 placeholder:text-accent-foreground/50 [&amp;>svg]:stroke-default-600 border rounded-lg text-sm h-6"><span
@@ -18,10 +30,11 @@
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                 class="lucide lucide-chevron-down" aria-hidden="true">
                                 <path d="m6 9 6 6 6-6"></path>
-                            </svg></button></div>
+                            </svg></button> --}}
+                    </div>
                 </div>
                 <div class="flex items-center gap-2 pr-5">
-                    <div class="flex items-center gap-2">
+                    {{-- <div class="flex items-center gap-2">
                         <p class="text-sm font-medium text-default-600">00:00:00</p><button
                             class="inline-flex items-center justify-center text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none text-primary-foreground bg-transparent rounded-full hover:bg-default-200 h-8 w-8"
                             type="button" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +84,15 @@
                             <path fill="currentColor" fill-rule="evenodd"
                                 d="M15.97 2.47a.75.75 0 0 1 1.06 0l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 1 1-1.06-1.06l3.22-3.22H7.5a.75.75 0 0 1 0-1.5h11.69l-3.22-3.22a.75.75 0 0 1 0-1.06m-7.94 9a.75.75 0 0 1 0 1.06l-3.22 3.22H16.5a.75.75 0 0 1 0 1.5H4.81l3.22 3.22a.75.75 0 1 1-1.06 1.06l-4.5-4.5a.75.75 0 0 1 0-1.06l4.5-4.5a.75.75 0 0 1 1.06 0"
                                 clip-rule="evenodd"></path>
-                        </svg></div>
+                        </svg></div> --}}
+                    <button type="button" @click="toggle()"
+                        class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none  disabled:pointer-events-none data-[state=open]:bg-secondary"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="h-4 w-4 relative top-4">
+                            <path d="M18 6 6 18"></path>
+                            <path d="m6 6 12 12"></path>
+                        </svg></button>
                 </div>
             </div>
             <div class="grid grid-cols-1 xl:grid-cols-2">
@@ -93,7 +114,7 @@
                             <div data-radix-scroll-area-viewport="" class="h-full w-full rounded-[inherit]"
                                 style="overflow: hidden scroll;">
                                 <div style="min-width: 100%; display: table;">
-                                    <form class="py-5 px-6 pb-8 border-b border-default-200">
+                                    {{-- <form class="py-5 px-6 pb-8 border-b border-default-200">
                                         {{-- <div class="flex items-center gap-1 mb-2"><button type="button"
                                                 role="checkbox" aria-checked="false" data-state="unchecked"
                                                 value="on"
@@ -101,7 +122,7 @@
                                                 aria-hidden="true" tabindex="-1" type="checkbox" value="on"
                                                 style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 16px; height: 16px;"><input
                                                 class="h-7 w-full border border-transparent text-sm font-medium text-default-900 rounded-sm focus:border focus:border-default-200 focus:outline-none px-1 focus:bg-default-50 bg-card"
-                                                type="text" name="title"></div> --}}
+                                                type="text" name="title"></div>
                                         <div class="flex gap-1 relative">
                                             <div class="mt-1"><svg xmlns="http://www.w3.org/2000/svg"
                                                     xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -118,7 +139,7 @@
                                                 placeholder="Add Task Descriptions" rows="1" name="desc" style="resize: none; overflow-y: hidden;"></textarea>
                                         </div>
                                         <div class="flex justify-end"></div>
-                                    </form>
+                                    </form> --}}
                                     <div class="py-5 px-4 lg:px-6 border-b border-default-200">
                                         <div class="grid  grid-cols-2  md:grid-cols-3 md:gap-2 gap-y-6">
                                             <div>
@@ -144,16 +165,13 @@
                                                         class="relative w-max-content flex -space-x-3 avatarGroup items-center">
                                                         <span
                                                             class="relative flex shrink-0 overflow-hidden rounded-full w-5 h-5 ring-1 ring-background ring-offset-[2px] ring-offset-background"
-                                                            data-state="closed"><img
-                                                                class="aspect-square h-full w-full"
+                                                            data-state="closed"><img class="aspect-square h-full w-full"
                                                                 src="/_next/static/media/avatar-7.82cf057d.jpg"></span><span
                                                             class="relative flex shrink-0 overflow-hidden rounded-full w-5 h-5 ring-1 ring-background ring-offset-[2px] ring-offset-background"
-                                                            data-state="closed"><img
-                                                                class="aspect-square h-full w-full"
+                                                            data-state="closed"><img class="aspect-square h-full w-full"
                                                                 src="/_next/static/media/avatar-7.82cf057d.jpg"></span><span
                                                             class="relative flex shrink-0 overflow-hidden rounded-full w-5 h-5 ring-1 ring-background ring-offset-[2px] ring-offset-background"
-                                                            data-state="closed"><img
-                                                                class="aspect-square h-full w-full"
+                                                            data-state="closed"><img class="aspect-square h-full w-full"
                                                                 src="/_next/static/media/avatar-7.82cf057d.jpg"></span><span
                                                             class="relative flex shrink-0 overflow-hidden rounded-full ring-1 ring-background ring-offset-[2px] ring-offset-background w-5 h-5"><span
                                                                 class="flex h-full w-full items-center justify-center rounded-full bg-muted text-sm font-normal">+4</span></span>
@@ -188,18 +206,18 @@
                                                     </div><span
                                                         class="text-sm font-medium text-default-900">Priority</span>
                                                 </div>
-                                                <div class="w-[100px]"><button type="button" role="combobox"
-                                                        aria-controls="radix-:r5n:" aria-expanded="false"
-                                                        aria-autocomplete="none" dir="ltr" data-state="closed"
-                                                        class="w-full px-3 flex [&amp;>svg]:h-5 [&amp;>svg]:w-5 justify-between items-center disabled:cursor-not-allowed disabled:opacity-50 transition duration-300 border-primary text-primary focus:outline-none focus:border-primary-700 disabled:bg-primary/30 disabled:placeholder:text-primary placeholder:text-primary/70 [&amp;>svg]:stroke-primary rounded-lg h-8 text-xs read-only:bg-primary/10"><span
-                                                            style="pointer-events: none;">High</span><svg
-                                                            xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none"
-                                                            stroke="currentColor" stroke-width="2"
-                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                            class="lucide lucide-chevron-down" aria-hidden="true">
-                                                            <path d="m6 9 6 6 6-6"></path>
-                                                        </svg></button></div>
+                                                <div class="w-[100px]">
+                                                    <select id="priority" name="priority"
+                                                        class="w-full px-3 flex [&amp;>svg]:h-5 [&amp;>svg]:w-5 justify-between items-center disabled:cursor-not-allowed disabled:opacity-50 transition duration-300 border-primary text-primary focus:outline-none focus:border-primary-700 disabled:bg-primary/30 disabled:placeholder:text-primary placeholder:text-primary/70 [&amp;>svg]:stroke-primary rounded-lg h-8 text-xs read-only:bg-primary/10">
+                                                        @foreach (\App\Enums\Priority::cases() as $priority)
+                                                            <option value="{{ $priority->value }}"
+                                                                @if ($priority->value == $orderDetails->priority) {{ 'selected=selected' }}
+                                                            @else
+                                                                {{ '' }} @endif>
+                                                                {{ $priority->label() }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div>
                                                 <div class="flex items-center gap-1 mb-2">
@@ -255,150 +273,88 @@
                                                             class="text-sm font-medium text-default-500  whitespace-normal  ">{{ $orderDetails->created_at }}</span></button>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <div class="flex items-center gap-1 mb-1">
-                                                    <div
-                                                        class="bg-default-100 h-6 w-6 rounded-full grid place-content-center">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none"
-                                                            stroke="currentColor" stroke-width="2"
-                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                            class="text-primary w-3.5 h-3.5">
-                                                            <polyline points="20 6 9 17 4 12"></polyline>
-                                                        </svg>
-                                                    </div><span
-                                                        class="text-sm font-medium text-default-900">Dependency</span>
-                                                </div>
-                                                <div class="relative"><button
-                                                        class="inline-flex items-center justify-center rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none h-10 text-sm font-medium text-primary hover:underline cursor-pointer bg-transparent hover:bg-transparent p-0"
-                                                        type="button">Set</button></div>
-                                            </div>
-                                            <div>
-                                                <div class="flex items-center gap-1 mb-3">
-                                                    <div
-                                                        class="bg-default-100 h-6 w-6 rounded-full grid place-content-center">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none"
-                                                            stroke="currentColor" stroke-width="2"
-                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                            class="text-primary w-3.5 h-3.5">
-                                                            <line x1="4" x2="20" y1="9"
-                                                                y2="9"></line>
-                                                            <line x1="4" x2="20" y1="15"
-                                                                y2="15"></line>
-                                                            <line x1="10" x2="8" y1="3"
-                                                                y2="21"></line>
-                                                            <line x1="16" x2="14" y1="3"
-                                                                y2="21"></line>
-                                                        </svg>
-                                                    </div><span class="text-sm font-medium text-default-900">Story
-                                                        Points</span>
-                                                </div>
-                                                <div><input placeholder="Set"
-                                                        class="w-full border-b border-default-300 focus:outline-none  text-sm font-medium text-default-900 appearance-none placeholder:text-primary"
-                                                        type="number"></div>
-                                            </div>
-                                        </div>
-                                        <div class="mt-6">
-                                            <div class="relative">
-                                                <div class="flex items-center gap-1">
-                                                    <div class="text-sm font-medium text-default-900">Add Tags</div>
-                                                    <button
-                                                        class="inline-flex items-center justify-center text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none text-primary-foreground h-5 w-5 rounded-full bg-default-100 hover:bg-default-200"><svg
-                                                            xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none"
-                                                            stroke="currentColor" stroke-width="2"
-                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                            class="w-3 h-3 text-primary">
-                                                            <path d="M5 12h14"></path>
-                                                            <path d="M12 5v14"></path>
-                                                        </svg></button>
-                                                </div>
-                                            </div>
-                                            <div class="mt-3 flex gap-2">
-                                                <div
-                                                    class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-success border-transparent text-success-foreground capitalize">
-                                                    design</div>
-                                                <div
-                                                    class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-info border-transparent text-info-foreground capitalize">
-                                                    planning</div>
-                                            </div>
+                                            @include(
+                                                'livewire/_partials/' .
+                                                    strtolower(
+                                                        \App\Enums\OrderType::from(
+                                                            $orderDetails->order_type)->label()),
+                                                ['orderDetails' => $orderDetails->service]
+                                            )
                                         </div>
                                     </div>
-                                    <div dir="ltr" data-orientation="horizontal">
-                                        <div role="tablist" aria-orientation="horizontal"
-                                            class="items-center text-muted-foreground flex justify-between w-full bg-default-100 h-12 p-0 px-2 xl:px-12 rounded-none"
-                                            tabindex="0" data-orientation="horizontal" style="outline: none;">
-                                            <button type="button" role="tab" aria-selected="false"
-                                                aria-controls="radix-:r5o:-content-attachments" data-state="inactive"
-                                                id="radix-:r5o:-trigger-attachments"
-                                                class="inline-flex items-center justify-center whitespace-nowrap px-3 ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=active]:text-foreground py-0 h-full bg-transparent text-sm font-medium text-default-600 capitalize rounded-none border-b border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
-                                                tabindex="-1" data-orientation="horizontal"
-                                                data-radix-collection-item=""><svg xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
-                                                    role="img"
-                                                    class="w-3.5 h-3.5 mr-1.5 iconify iconify--heroicons"
-                                                    width="1em" height="1em" viewBox="0 0 24 24">
-                                                    <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5"
-                                                        d="m18.375 12.739l-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13">
-                                                    </path>
-                                                </svg>attachments</button><button type="button" role="tab"
-                                                aria-selected="false" aria-controls="radix-:r5o:-content-comments"
-                                                data-state="inactive" id="radix-:r5o:-trigger-comments"
-                                                class="items-center justify-center whitespace-nowrap px-3 ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=active]:text-foreground py-0 h-full bg-transparent text-sm font-medium text-default-600 capitalize rounded-none border-b border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none flex xl:hidden"
-                                                tabindex="-1" data-orientation="horizontal"
-                                                data-radix-collection-item=""><svg xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
-                                                    role="img"
-                                                    class="w-3.5 h-3.5 mr-1.5 iconify iconify--heroicons"
-                                                    width="1em" height="1em" viewBox="0 0 24 24">
-                                                    <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5"
-                                                        d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227q1.603.236 3.238.364c.466.037.893.281 1.153.671L12 21l2.652-3.978c.26-.39.687-.634 1.153-.67q1.635-.13 3.238-.365c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.4 48.4 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741z">
-                                                    </path>
-                                                </svg>comments</button>
-                                        </div>
-                                        <div data-state="active" data-orientation="horizontal" role="tabpanel"
-                                            aria-labelledby="radix-:r5o:-trigger-subtasks"
-                                            id="radix-:r5o:-content-subtasks" tabindex="0"
-                                            class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                                            style="animation-duration: 0s;">
-                                            <table class="w-full caption-top text-sm">
-                                                <thead class="[&amp;_tr]:border-b">
-                                                    <tr
-                                                        class="border-b border-default-300 transition-colors data-[state=selected]:bg-muted">
+                                </div>
+                                <div dir="ltr" data-orientation="horizontal">
+                                    <div role="tablist" aria-orientation="horizontal"
+                                        class="items-center text-muted-foreground flex justify-between w-full bg-default-100 h-12 p-0 px-2 xl:px-12 rounded-none"
+                                        tabindex="0" data-orientation="horizontal" style="outline: none;">
+                                        <button type="button" role="tab" aria-selected="false"
+                                            aria-controls="radix-:r5o:-content-attachments" data-state="inactive"
+                                            id="radix-:r5o:-trigger-attachments"
+                                            class="inline-flex items-center justify-center whitespace-nowrap px-3 ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=active]:text-foreground py-0 h-full bg-transparent text-sm font-medium text-default-600 capitalize rounded-none border-b border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                                            tabindex="-1" data-orientation="horizontal"
+                                            data-radix-collection-item=""><svg xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+                                                role="img" class="w-3.5 h-3.5 mr-1.5 iconify iconify--heroicons"
+                                                width="1em" height="1em" viewBox="0 0 24 24">
+                                                <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="1.5"
+                                                    d="m18.375 12.739l-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13">
+                                                </path>
+                                            </svg>attachments</button><button type="button" role="tab"
+                                            aria-selected="false" aria-controls="radix-:r5o:-content-comments"
+                                            data-state="inactive" id="radix-:r5o:-trigger-comments"
+                                            class="items-center justify-center whitespace-nowrap px-3 ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=active]:text-foreground py-0 h-full bg-transparent text-sm font-medium text-default-600 capitalize rounded-none border-b border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none flex xl:hidden"
+                                            tabindex="-1" data-orientation="horizontal"
+                                            data-radix-collection-item=""><svg xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+                                                role="img" class="w-3.5 h-3.5 mr-1.5 iconify iconify--heroicons"
+                                                width="1em" height="1em" viewBox="0 0 24 24">
+                                                <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="1.5"
+                                                    d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227q1.603.236 3.238.364c.466.037.893.281 1.153.671L12 21l2.652-3.978c.26-.39.687-.634 1.153-.67q1.635-.13 3.238-.365c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.4 48.4 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741z">
+                                                </path>
+                                            </svg>comments</button>
+                                    </div>
+                                    <div data-state="active" data-orientation="horizontal" role="tabpanel"
+                                        aria-labelledby="radix-:r5o:-trigger-subtasks"
+                                        id="radix-:r5o:-content-subtasks" tabindex="0"
+                                        class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                        style="animation-duration: 0s;">
+                                        <table class="w-full caption-top text-sm">
+                                            <thead class="[&amp;_tr]:border-b">
+                                                <tr
+                                                    class="border-b border-default-300 transition-colors data-[state=selected]:bg-muted">
 
-                                                        <th
-                                                            class="h-14 px-4 ltr:text-left rtl:text-right ltr:last:text-right rtl:last:text-left align-middle text-sm text-default-800 capitalize ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 font-semibold">
-                                                            File Name</th>
-                                                        <th
-                                                            class="h-14 px-4 ltr:text-left rtl:text-right ltr:last:text-right rtl:last:text-left align-middle font-semibold text-sm text-default-800 capitalize ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0">
-                                                            Type</th>
+                                                    <th
+                                                        class="h-14 px-4 ltr:text-left rtl:text-right ltr:last:text-right rtl:last:text-left align-middle text-sm text-default-800 capitalize ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 font-semibold">
+                                                        File Name</th>
+                                                    <th
+                                                        class="h-14 px-4 ltr:text-left rtl:text-right ltr:last:text-right rtl:last:text-left align-middle font-semibold text-sm text-default-800 capitalize ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0">
+                                                        Type</th>
 
-                                                        <th
-                                                            class="h-14 px-4 ltr:text-left rtl:text-right ltr:last:text-right rtl:last:text-left align-middle font-semibold text-sm text-default-800 capitalize ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 whitespace-nowrap">
-                                                            Upload Date</th>
-                                                        <th
-                                                            class="h-14 px-4 ltr:text-left rtl:text-right ltr:last:text-right rtl:last:text-left align-middle font-semibold text-sm text-default-800 capitalize ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 text-end">
-                                                            Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="[&amp;_tr:last-child]:border-0">
-                                                    @foreach ($orderDetails->documents as $document)
+                                                    <th
+                                                        class="h-14 px-4 ltr:text-left rtl:text-right ltr:last:text-right rtl:last:text-left align-middle font-semibold text-sm text-default-800 capitalize ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 whitespace-nowrap">
+                                                        Upload Date</th>
+                                                    <th
+                                                        class="h-14 px-4 ltr:text-left rtl:text-right ltr:last:text-right rtl:last:text-left align-middle font-semibold text-sm text-default-800 capitalize ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 text-end">
+                                                        Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="[&amp;_tr:last-child]:border-0">
+                                                @foreach ($orderDetails->documents as $document)
                                                     <tr class="border-b border-default-300 transition-colors data-[state=selected]:bg-muted hover:bg-muted whitespace-nowrap"
-                                                    data-state="false">
+                                                        data-state="false">
                                                         <td
                                                             class="p-4 align-middle text-sm last:text-right rtl:last:text-left ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 font-medium text-card-foreground/80">
                                                             <div
                                                                 class="flex space-x-3  rtl:space-x-reverse items-center">
                                                                 <span
-                                                                    class=" text-sm  whitespace-nowrap text-card-foreground">{{ $document->file_name}}</span>
+                                                                    class=" text-sm  whitespace-nowrap text-card-foreground">{{ $document->file_name }}</span>
                                                             </div>
                                                         </td>
                                                         <td
                                                             class="p-4 align-middle text-sm text-default-600 last:text-right rtl:last:text-left font-normal ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0">
-                                                            {{ $document->file_type}}</td>
+                                                            {{ $document->file_type }}</td>
                                                         <td
                                                             class="p-4 align-middle text-sm text-default-600 last:text-right rtl:last:text-left font-normal ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0">
                                                             {{ $document->created_at }}</td>
@@ -407,8 +363,7 @@
                                                             <div class="flex space-x-3 rtl:space-x-reverse">
                                                                 <button
                                                                     class="inline-flex items-center justify-center rounded-md text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none border border-current bg-transparent text-primary hover:text-primary-foreground hover:border-primary hover:bg-primary h-7 w-7"
-                                                                    onclick="window.open('{{ Storage::disk('public')->url('digitizing/'.$document->file_path) }}', '_blank');"
-                                                                    ><svg
+                                                                    onclick="window.open('{{ Storage::disk('public')->url('digitizing/' . $document->file_path) }}', '_blank');"><svg
                                                                         xmlns="http://www.w3.org/2000/svg"
                                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
                                                                         aria-hidden="true" role="img"
@@ -421,7 +376,7 @@
                                                                             d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3">
                                                                         </path>
                                                                     </svg></button>
-                                                                    {{-- <button
+                                                                {{-- <button
                                                                     class="inline-flex items-center justify-center rounded-md text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none border border-current bg-transparent text-destructive hover:text-destructive-foreground hover:border-destructive hover:bg-destructive h-7 w-7"><svg
                                                                         xmlns="http://www.w3.org/2000/svg"
                                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -435,28 +390,21 @@
                                                                             d="m14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21q.512.078 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48 48 0 0 0-3.478-.397m-12 .562q.51-.088 1.022-.165m0 0a48 48 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a52 52 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a49 49 0 0 0-7.5 0">
                                                                         </path>
                                                                     </svg></button> --}}
-                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <livewire:order-comments orderId="{{$orderDetails->id}}" />
-            </div><button type="button" @click="toggle()"
-                class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none  disabled:pointer-events-none data-[state=open]:bg-secondary"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" class="h-4 w-4 relative top-4">
-                    <path d="M18 6 6 18"></path>
-                    <path d="m6 6 12 12"></path>
-                </svg></button>
+                <livewire:order-comments orderId="{{ $orderDetails->id }}"
+                    wire:key="comment-{{ $orderDetails->id }}" />
+            </div>
         </div>
     @else
         <div></div>

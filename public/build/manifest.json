@@ -1,0 +1,13 @@
+{
+  "resources/css/globals.scss": {
+    "file": "assets/globals-D_DG-SO3.css",
+    "src": "resources/css/globals.scss",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-DkQDfWaX.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}

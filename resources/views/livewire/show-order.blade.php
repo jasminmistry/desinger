@@ -1,13 +1,14 @@
 <div>
     @if ($orderId)
-        <div role="dialog" id="radix-:r44:" x-data="{ open: true, toggle() { $el.remove(); } }" aria-describedby="radix-:r46:" aria-labelledby="radix-:r45:" data-state="open"
-            x-show="open"
+        <div role="dialog" id="radix-:r44:" x-data="{ open: true, toggle() { $el.remove(); } }" aria-describedby="radix-:r46:"
+            aria-labelledby="radix-:r45:" data-state="open" x-show="open"
             class="fixed z-[999] gap-4 bg-card shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500 inset-y-0 right-0 h-full border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right max-w-sm w-[85%] md:max-w-[1200px] p-0"
             tabindex="-1" style="pointer-events: auto;">
             <div
                 class="flex flex-col text-center sm:text-left sm:flex-row justify-between gap-3 space-y-0 border-b border-default-200 px-2 xl:px-6 py-5">
                 <div class="flex items-center gap-2">
-                    <div class="text-sm font-medium text-default-600 bg-default-100 py-[2px] px-3 rounded">DT 01</div>
+                    <div class="text-sm font-medium text-default-600 bg-default-100 py-[2px] px-3 rounded">
+                        {{ $orderDetails->service->name }}</div>
                     <div class="w-fit px-1"><button type="button" role="combobox" aria-controls="radix-:r5i:"
                             aria-expanded="false" aria-autocomplete="none" dir="ltr" data-state="closed"
                             data-placeholder=""
@@ -93,14 +94,14 @@
                                 style="overflow: hidden scroll;">
                                 <div style="min-width: 100%; display: table;">
                                     <form class="py-5 px-6 pb-8 border-b border-default-200">
-                                        <div class="flex items-center gap-1 mb-2"><button type="button"
+                                        {{-- <div class="flex items-center gap-1 mb-2"><button type="button"
                                                 role="checkbox" aria-checked="false" data-state="unchecked"
                                                 value="on"
                                                 class="peer group shrink-0 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;_svg]:stroke-primary-foreground border border-default-300 data-[state=checked]:bg-default-300/90 bg-card rounded [&amp;_svg]:h-4 [&amp;_svg]:w-4 w-4 h-4"></button><input
                                                 aria-hidden="true" tabindex="-1" type="checkbox" value="on"
                                                 style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 16px; height: 16px;"><input
                                                 class="h-7 w-full border border-transparent text-sm font-medium text-default-900 rounded-sm focus:border focus:border-default-200 focus:outline-none px-1 focus:bg-default-50 bg-card"
-                                                type="text" name="title"></div>
+                                                type="text" name="title"></div> --}}
                                         <div class="flex gap-1 relative">
                                             <div class="mt-1"><svg xmlns="http://www.w3.org/2000/svg"
                                                     xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -222,12 +223,13 @@
                                                             <line x1="3" x2="3.01" y1="18"
                                                                 y2="18"></line>
                                                         </svg>
-                                                    </div><span
-                                                        class="text-sm font-medium text-default-900">List</span>
+                                                    </div><span class="text-sm font-medium text-default-900">Order
+                                                        Type</span>
                                                 </div>
                                                 <div class="relative"><button
                                                         class="inline-flex items-center justify-center rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none h-10 px-4 py-[10px] text-sm font-medium text-default-500 bg-transparent hover:bg-transparent"
-                                                        type="button">UI/UX Design</button></div>
+                                                        type="button">{{ \App\Enums\OrderType::from($orderDetails->order_type)->label() }}</button>
+                                                </div>
                                             </div>
                                             <div>
                                                 <div class="flex items-center gap-1 mb-3">
@@ -250,8 +252,8 @@
                                                 <div class="relative"><button
                                                         class="inline-flex items-center justify-center rounded-md text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none text-primary-foreground h-10 bg-transparent hover:bg-transparent text-start p-0"
                                                         type="button"><span
-                                                            class="text-sm font-medium text-default-500  whitespace-normal  ">Due:
-                                                            30 Feb, 2024 / 5:23AM</span></button></div>
+                                                            class="text-sm font-medium text-default-500  whitespace-normal  ">{{ $orderDetails->created_at }}</span></button>
+                                                </div>
                                             </div>
                                             <div>
                                                 <div class="flex items-center gap-1 mb-1">
@@ -327,23 +329,9 @@
                                         <div role="tablist" aria-orientation="horizontal"
                                             class="items-center text-muted-foreground flex justify-between w-full bg-default-100 h-12 p-0 px-2 xl:px-12 rounded-none"
                                             tabindex="0" data-orientation="horizontal" style="outline: none;">
-                                            <button type="button" role="tab" aria-selected="true"
-                                                aria-controls="radix-:r5o:-content-subtasks" data-state="active"
-                                                id="radix-:r5o:-trigger-subtasks"
-                                                class="inline-flex items-center justify-center whitespace-nowrap px-3 ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=active]:text-foreground py-0 h-full bg-transparent text-sm font-medium text-default-600 capitalize rounded-none border-b border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
-                                                tabindex="-1" data-orientation="horizontal"
-                                                data-radix-collection-item=""><svg xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
-                                                    role="img"
-                                                    class="w-3.5 h-3.5 mr-1.5 iconify iconify--heroicons"
-                                                    width="1em" height="1em" viewBox="0 0 24 24">
-                                                    <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5"
-                                                        d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9">
-                                                    </path>
-                                                </svg>subtasks</button><button type="button" role="tab"
-                                                aria-selected="false" aria-controls="radix-:r5o:-content-attachments"
-                                                data-state="inactive" id="radix-:r5o:-trigger-attachments"
+                                            <button type="button" role="tab" aria-selected="false"
+                                                aria-controls="radix-:r5o:-content-attachments" data-state="inactive"
+                                                id="radix-:r5o:-trigger-attachments"
                                                 class="inline-flex items-center justify-center whitespace-nowrap px-3 ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=active]:text-foreground py-0 h-full bg-transparent text-sm font-medium text-default-600 capitalize rounded-none border-b border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
                                                 tabindex="-1" data-orientation="horizontal"
                                                 data-radix-collection-item=""><svg xmlns="http://www.w3.org/2000/svg"
@@ -369,600 +357,99 @@
                                                         stroke-linejoin="round" stroke-width="1.5"
                                                         d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227q1.603.236 3.238.364c.466.037.893.281 1.153.671L12 21l2.652-3.978c.26-.39.687-.634 1.153-.67q1.635-.13 3.238-.365c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.4 48.4 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741z">
                                                     </path>
-                                                </svg>comments</button></div>
+                                                </svg>comments</button>
+                                        </div>
                                         <div data-state="active" data-orientation="horizontal" role="tabpanel"
                                             aria-labelledby="radix-:r5o:-trigger-subtasks"
                                             id="radix-:r5o:-content-subtasks" tabindex="0"
                                             class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                                             style="animation-duration: 0s;">
-                                            <div class="pt-3">
-                                                <div class="flex mb-2 px-6">
-                                                    <div
-                                                        class="flex-1 text-base font-medium text-default-700 capitalize">
-                                                        Progress</div>
-                                                    <div class="flex-1 flex items-center gap-2">
-                                                        <div class="flex-none text-xs font-medium text-default-500">3/6
-                                                        </div>
-                                                        <div class="flex-1">
-                                                            <div aria-valuemax="100" aria-valuemin="0"
-                                                                role="progressbar" data-state="indeterminate"
-                                                                data-max="100"
-                                                                class="relative overflow-hidden rounded-full bg-default-200 [&amp;>div]:bg-primary h-2">
-                                                                <div data-state="indeterminate" data-max="100"
-                                                                    class="flex-1 transition-all h-full w-full flex items-center justify-center"
-                                                                    style="transform: translateX(-50%);"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div
-                                                        class="flex gap-2 border-b border-dashed border-default-200 py-3 px-6 cursor-pointer">
-                                                        <div class="mt-1 flex-none">
-                                                            <div><button type="button" role="checkbox"
-                                                                    aria-checked="false" data-state="unchecked"
-                                                                    value="on"
-                                                                    class="peer group shrink-0 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;_svg]:stroke-primary-foreground border border-default-400 data-[state=checked]:border-primary data-[state=checked]:bg-primary bg-card rounded h-4 w-4 [&amp;_svg]:h-3 [&amp;_svg]:w-3"></button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-1">
-                                                            <div class="flex">
-                                                                <div
-                                                                    class="flex-1 text-base font-medium text-default-900">
-                                                                    parsing</div>
-                                                                <div class="flex-none flex items-center gap-2">
-                                                                    <div>
-                                                                        <div
-                                                                            class="relative w-max-content flex -space-x-3 avatarGroup items-center">
-                                                                            <span
-                                                                                class="relative flex shrink-0 overflow-hidden rounded-full ring-1 ring-background ring-offset-[2px] ring-offset-background h-7 w-7"><span
-                                                                                    class="flex h-full w-full items-center justify-center rounded-full bg-muted font-semibold text-sm">AB</span></span><span
-                                                                                class="relative flex shrink-0 overflow-hidden rounded-full ring-1 ring-background ring-offset-[2px] ring-offset-background h-7 w-7"><span
-                                                                                    class="flex h-full w-full items-center justify-center rounded-full bg-muted font-semibold text-sm">AB</span></span><span
-                                                                                class="relative flex shrink-0 overflow-hidden rounded-full ring-1 ring-background ring-offset-[2px] ring-offset-background h-7 w-7"><span
-                                                                                    class="flex h-full w-full items-center justify-center rounded-full bg-muted font-semibold text-sm">AB</span></span><span
-                                                                                class="relative flex shrink-0 overflow-hidden rounded-full ring-1 ring-background ring-offset-[2px] ring-offset-background w-7 h-7"><span
-                                                                                    class="flex h-full w-full items-center justify-center rounded-full bg-muted text-sm font-normal">+5</span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div>
-                                                                        <div class="relative"><button
-                                                                                class="h-5 w-5 rounded-full bg-default-100 grid place-content-center"><svg
-                                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                                    width="24" height="24"
-                                                                                    viewBox="0 0 24 24" fill="none"
-                                                                                    stroke="currentColor"
-                                                                                    stroke-width="2"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    class="w-3 h-3 text-primary">
-                                                                                    <path
-                                                                                        d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2">
-                                                                                    </path>
-                                                                                    <circle cx="9"
-                                                                                        cy="7" r="4"></circle>
-                                                                                    <line x1="19"
-                                                                                        x2="19" y1="8"
-                                                                                        y2="14">
-                                                                                    </line>
-                                                                                    <line x1="22"
-                                                                                        x2="16" y1="11"
-                                                                                        y2="11">
-                                                                                    </line>
-                                                                                </svg></button></div>
-                                                                    </div><button
-                                                                        class="inline-flex items-center justify-center text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none h-6 w-6 bg-default-100 text-primary rounded-full hover:bg-default-100 relative"
-                                                                        type="button" id="radix-:r5v:"
-                                                                        aria-haspopup="menu" aria-expanded="false"
-                                                                        data-state="closed"><svg
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                            aria-hidden="true" role="img"
-                                                                            class="w-4 h-4 text-default-900 iconify iconify--heroicons"
-                                                                            width="1em" height="1em"
-                                                                            viewBox="0 0 24 24">
-                                                                            <path fill="none" stroke="currentColor"
-                                                                                stroke-linecap="round"
-                                                                                stroke-linejoin="round"
-                                                                                stroke-width="1.5"
-                                                                                d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0">
-                                                                            </path>
-                                                                        </svg></button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="flex items-center gap-3 mt-3">
-                                                                <div
-                                                                    class="inline-flex items-center border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-warning border-transparent bg-opacity-10 text-warning hover:text-warning text-[10px] px-1 py-0 rounded leading-4 capitalize">
-                                                                    high</div>
-                                                                <div
-                                                                    class="text-xs text-default-500 flex items-center gap-1">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                        aria-hidden="true" role="img"
-                                                                        class="w-3.5 h-3.5 text-default-500 iconify iconify--heroicons"
-                                                                        width="1em" height="1em"
-                                                                        viewBox="0 0 24 24">
-                                                                        <path fill="none" stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="1.5"
-                                                                            d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5">
-                                                                        </path>
-                                                                    </svg><span>May 25, 2024</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="flex gap-2 border-b border-dashed border-default-200 py-3 px-6 cursor-pointer">
-                                                        <div class="mt-1 flex-none">
-                                                            <div><button type="button" role="checkbox"
-                                                                    aria-checked="false" data-state="unchecked"
-                                                                    value="on"
-                                                                    class="peer group shrink-0 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;_svg]:stroke-primary-foreground border border-default-400 data-[state=checked]:border-primary data-[state=checked]:bg-primary bg-card rounded h-4 w-4 [&amp;_svg]:h-3 [&amp;_svg]:w-3"></button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-1">
-                                                            <div class="flex">
-                                                                <div
-                                                                    class="flex-1 text-base font-medium text-default-900">
-                                                                    synthesizing</div>
-                                                                <div class="flex-none flex items-center gap-2">
-                                                                    <div>
-                                                                        <div
-                                                                            class="relative w-max-content flex -space-x-3 avatarGroup items-center">
-                                                                            <span
-                                                                                class="relative flex shrink-0 overflow-hidden rounded-full ring-1 ring-background ring-offset-[2px] ring-offset-background h-7 w-7"><span
-                                                                                    class="flex h-full w-full items-center justify-center rounded-full bg-muted font-semibold text-sm">AB</span></span><span
-                                                                                class="relative flex shrink-0 overflow-hidden rounded-full ring-1 ring-background ring-offset-[2px] ring-offset-background h-7 w-7"><span
-                                                                                    class="flex h-full w-full items-center justify-center rounded-full bg-muted font-semibold text-sm">AB</span></span><span
-                                                                                class="relative flex shrink-0 overflow-hidden rounded-full ring-1 ring-background ring-offset-[2px] ring-offset-background h-7 w-7"><span
-                                                                                    class="flex h-full w-full items-center justify-center rounded-full bg-muted font-semibold text-sm">AB</span></span><span
-                                                                                class="relative flex shrink-0 overflow-hidden rounded-full ring-1 ring-background ring-offset-[2px] ring-offset-background w-7 h-7"><span
-                                                                                    class="flex h-full w-full items-center justify-center rounded-full bg-muted text-sm font-normal">+6</span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div>
-                                                                        <div class="relative"><button
-                                                                                class="h-5 w-5 rounded-full bg-default-100 grid place-content-center"><svg
-                                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                                    width="24" height="24"
-                                                                                    viewBox="0 0 24 24" fill="none"
-                                                                                    stroke="currentColor"
-                                                                                    stroke-width="2"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    class="w-3 h-3 text-primary">
-                                                                                    <path
-                                                                                        d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2">
-                                                                                    </path>
-                                                                                    <circle cx="9"
-                                                                                        cy="7" r="4"></circle>
-                                                                                    <line x1="19"
-                                                                                        x2="19" y1="8"
-                                                                                        y2="14">
-                                                                                    </line>
-                                                                                    <line x1="22"
-                                                                                        x2="16" y1="11"
-                                                                                        y2="11">
-                                                                                    </line>
-                                                                                </svg></button></div>
-                                                                    </div><button
-                                                                        class="inline-flex items-center justify-center text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none h-6 w-6 bg-default-100 text-primary rounded-full hover:bg-default-100 relative"
-                                                                        type="button" id="radix-:r64:"
-                                                                        aria-haspopup="menu" aria-expanded="false"
-                                                                        data-state="closed"><svg
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                            aria-hidden="true" role="img"
-                                                                            class="w-4 h-4 text-default-900 iconify iconify--heroicons"
-                                                                            width="1em" height="1em"
-                                                                            viewBox="0 0 24 24">
-                                                                            <path fill="none" stroke="currentColor"
-                                                                                stroke-linecap="round"
-                                                                                stroke-linejoin="round"
-                                                                                stroke-width="1.5"
-                                                                                d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0">
-                                                                            </path>
-                                                                        </svg></button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="flex items-center gap-3 mt-3">
-                                                                <div
-                                                                    class="inline-flex items-center border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-warning border-transparent bg-opacity-10 text-warning hover:text-warning text-[10px] px-1 py-0 rounded leading-4 capitalize">
-                                                                    low</div>
-                                                                <div
-                                                                    class="text-xs text-default-500 flex items-center gap-1">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                        aria-hidden="true" role="img"
-                                                                        class="w-3.5 h-3.5 text-default-500 iconify iconify--heroicons"
-                                                                        width="1em" height="1em"
-                                                                        viewBox="0 0 24 24">
-                                                                        <path fill="none" stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="1.5"
-                                                                            d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5">
-                                                                        </path>
-                                                                    </svg><span>February 12, 2024</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="flex gap-2 border-b border-dashed border-default-200 py-3 px-6 cursor-pointer">
-                                                        <div class="mt-1 flex-none">
-                                                            <div><button type="button" role="checkbox"
-                                                                    aria-checked="false" data-state="unchecked"
-                                                                    value="on"
-                                                                    class="peer group shrink-0 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;_svg]:stroke-primary-foreground border border-default-400 data-[state=checked]:border-primary data-[state=checked]:bg-primary bg-card rounded h-4 w-4 [&amp;_svg]:h-3 [&amp;_svg]:w-3"></button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-1">
-                                                            <div class="flex">
-                                                                <div
-                                                                    class="flex-1 text-base font-medium text-default-900">
-                                                                    indexing</div>
-                                                                <div class="flex-none flex items-center gap-2">
-                                                                    <div>
-                                                                        <div
-                                                                            class="relative w-max-content flex -space-x-3 avatarGroup items-center">
-                                                                            <span
-                                                                                class="relative flex shrink-0 overflow-hidden rounded-full ring-1 ring-background ring-offset-[2px] ring-offset-background h-7 w-7"><span
-                                                                                    class="flex h-full w-full items-center justify-center rounded-full bg-muted font-semibold text-sm">AB</span></span><span
-                                                                                class="relative flex shrink-0 overflow-hidden rounded-full ring-1 ring-background ring-offset-[2px] ring-offset-background h-7 w-7"><span
-                                                                                    class="flex h-full w-full items-center justify-center rounded-full bg-muted font-semibold text-sm">AB</span></span><span
-                                                                                class="relative flex shrink-0 overflow-hidden rounded-full ring-1 ring-background ring-offset-[2px] ring-offset-background h-7 w-7"><span
-                                                                                    class="flex h-full w-full items-center justify-center rounded-full bg-muted font-semibold text-sm">AB</span></span><span
-                                                                                class="relative flex shrink-0 overflow-hidden rounded-full ring-1 ring-background ring-offset-[2px] ring-offset-background w-7 h-7"><span
-                                                                                    class="flex h-full w-full items-center justify-center rounded-full bg-muted text-sm font-normal">+8</span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div>
-                                                                        <div class="relative"><button
-                                                                                class="h-5 w-5 rounded-full bg-default-100 grid place-content-center"><svg
-                                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                                    width="24" height="24"
-                                                                                    viewBox="0 0 24 24" fill="none"
-                                                                                    stroke="currentColor"
-                                                                                    stroke-width="2"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    class="w-3 h-3 text-primary">
-                                                                                    <path
-                                                                                        d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2">
-                                                                                    </path>
-                                                                                    <circle cx="9"
-                                                                                        cy="7" r="4"></circle>
-                                                                                    <line x1="19"
-                                                                                        x2="19" y1="8"
-                                                                                        y2="14">
-                                                                                    </line>
-                                                                                    <line x1="22"
-                                                                                        x2="16" y1="11"
-                                                                                        y2="11">
-                                                                                    </line>
-                                                                                </svg></button></div>
-                                                                    </div><button
-                                                                        class="inline-flex items-center justify-center text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none h-6 w-6 bg-default-100 text-primary rounded-full hover:bg-default-100 relative"
-                                                                        type="button" id="radix-:r69:"
-                                                                        aria-haspopup="menu" aria-expanded="false"
-                                                                        data-state="closed"><svg
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                            aria-hidden="true" role="img"
-                                                                            class="w-4 h-4 text-default-900 iconify iconify--heroicons"
-                                                                            width="1em" height="1em"
-                                                                            viewBox="0 0 24 24">
-                                                                            <path fill="none" stroke="currentColor"
-                                                                                stroke-linecap="round"
-                                                                                stroke-linejoin="round"
-                                                                                stroke-width="1.5"
-                                                                                d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0">
-                                                                            </path>
-                                                                        </svg></button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="flex items-center gap-3 mt-3">
-                                                                <div
-                                                                    class="inline-flex items-center border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-warning border-transparent bg-opacity-10 text-warning hover:text-warning text-[10px] px-1 py-0 rounded leading-4 capitalize">
-                                                                    low</div>
-                                                                <div
-                                                                    class="text-xs text-default-500 flex items-center gap-1">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                        aria-hidden="true" role="img"
-                                                                        class="w-3.5 h-3.5 text-default-500 iconify iconify--heroicons"
-                                                                        width="1em" height="1em"
-                                                                        viewBox="0 0 24 24">
-                                                                        <path fill="none" stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="1.5"
-                                                                            d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5">
-                                                                        </path>
-                                                                    </svg><span>August 4, 2024</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <form class="relative pr-1.5"><label
-                                                        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-50 inline-block p-0 m-0 absolute top-1/2 -translate-y-1/2 left-6 z-10 cursor-pointer"
-                                                        for="add-subtask"><svg xmlns="http://www.w3.org/2000/svg"
-                                                            width="24" height="24" viewBox="0 0 24 24"
-                                                            fill="none" stroke="currentColor" stroke-width="2"
-                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                            class="w-5 h-5 text-default-500 ">
-                                                            <path d="M5 12h14"></path>
-                                                            <path d="M12 5v14"></path>
-                                                        </svg></label>
-                                                    <div class="flex-1 w-full"><input
-                                                            class="w-full bg-background dark:border-700 px-3 file:border-0 file:bg-transparent file:text-sm file:font-medium read-only:bg-background disabled:cursor-not-allowed disabled:opacity-50 transition duration-300 focus:outline-none disabled:bg-default-200 placeholder:text-accent-foreground/50 border read-only:leading-9 h-[52px] rounded-none border-b border-default-200 pl-12 text-sm font-medium text-default-600 focus:shadow-sm focus:drop-shadow-sm focus:inset-4 focus:border-default-300"
-                                                            id="add-subtask" placeholder="Add a new subtask..."
-                                                            name="title"></div>
-                                                </form>
-                                                <div
-                                                    class="px-6 py-4 cursor-pointer text-xs font-medium text-default-500 flex items-center gap-1">
-                                                    3 Completed Subtask <svg xmlns="http://www.w3.org/2000/svg"
-                                                        width="24" height="24" viewBox="0 0 24 24"
-                                                        fill="none" stroke="currentColor" stroke-width="2"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        class="w-4 h-4">
-                                                        <path d="m6 9 6 6 6-6"></path>
-                                                    </svg></div>
-                                                <div data-state="closed">
-                                                    <div data-state="closed" id="radix-:r6b:" hidden=""
-                                                        class="CollapsibleContent" style=""></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div data-state="inactive" data-orientation="horizontal" role="tabpanel"
-                                            aria-labelledby="radix-:r5o:-trigger-attachments" hidden=""
-                                            id="radix-:r5o:-content-attachments" tabindex="0"
-                                            class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                                        </div>
-                                        <div data-state="inactive" data-orientation="horizontal" role="tabpanel"
-                                            aria-labelledby="radix-:r5o:-trigger-comments" hidden=""
-                                            id="radix-:r5o:-content-comments" tabindex="0"
-                                            class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="hidden xl:block">
-                    <div class="flex flex-col justify-between">
-                        <div class="border-none mb-0 flex-none py-3.5 px-2">
-                            <div class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
-                                    class="h-4 w-4 text-default-500 iconify iconify--heroicons" width="1em"
-                                    height="1em" viewBox="0 0 24 24">
-                                    <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                        stroke-linejoin="round" stroke-width="1.5"
-                                        d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227q1.603.236 3.238.364c.466.037.893.281 1.153.671L12 21l2.652-3.978c.26-.39.687-.634 1.153-.67q1.635-.13 3.238-.365c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.4 48.4 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741z">
-                                    </path>
-                                </svg>
-                                <div class="text-base font-medium text-default-800">6<span
-                                        class="ml-1 capitalize">comments</span></div>
-                            </div>
-                        </div>
-                        <div class="flex-1 pb-0">
-                            <div
-                                class="relative before:absolute before:top-1/2 -translate-y-1/2 before:left-0 before:w-full before:h-[1px] before:bg-default-300 text-center">
-                                <span class="relative bg-card   px-3">Today</span>
-                            </div>
-                            <div class="h-[calc(100vh-210px)]">
-                                <div dir="ltr" class="relative overflow-hidden h-full"
-                                    style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;">
-                                    <style>
-                                        [data-radix-scroll-area-viewport] {
-                                            scrollbar-width: none;
-                                            -ms-overflow-style: none;
-                                            -webkit-overflow-scrolling: touch;
-                                        }
+                                            <table class="w-full caption-top text-sm">
+                                                <thead class="[&amp;_tr]:border-b">
+                                                    <tr
+                                                        class="border-b border-default-300 transition-colors data-[state=selected]:bg-muted">
 
-                                        [data-radix-scroll-area-viewport]::-webkit-scrollbar {
-                                            display: none
-                                        }
-                                    </style>
-                                    <div data-radix-scroll-area-viewport="" class="h-full w-full rounded-[inherit]"
-                                        style="overflow: hidden scroll;">
-                                        <div style="min-width: 100%; display: table;">
-                                            <div class="space-y-3.5 px-5">
-                                                <div class="flex gap-2">
-                                                    <div class="felx-none"><span
-                                                            class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"><span
-                                                                class="flex h-full w-full items-center justify-center rounded-full bg-muted font-semibold text-sm">CS</span></span>
-                                                    </div>
-                                                    <div class="flex-1">
-                                                        <div class="flex items-center gap-2">
+                                                        <th
+                                                            class="h-14 px-4 ltr:text-left rtl:text-right ltr:last:text-right rtl:last:text-left align-middle text-sm text-default-800 capitalize ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 font-semibold">
+                                                            File Name</th>
+                                                        <th
+                                                            class="h-14 px-4 ltr:text-left rtl:text-right ltr:last:text-right rtl:last:text-left align-middle font-semibold text-sm text-default-800 capitalize ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0">
+                                                            Type</th>
+
+                                                        <th
+                                                            class="h-14 px-4 ltr:text-left rtl:text-right ltr:last:text-right rtl:last:text-left align-middle font-semibold text-sm text-default-800 capitalize ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 whitespace-nowrap">
+                                                            Upload Date</th>
+                                                        <th
+                                                            class="h-14 px-4 ltr:text-left rtl:text-right ltr:last:text-right rtl:last:text-left align-middle font-semibold text-sm text-default-800 capitalize ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 text-end">
+                                                            Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="[&amp;_tr:last-child]:border-0">
+                                                    @foreach ($orderDetails->documents as $document)
+                                                    <tr class="border-b border-default-300 transition-colors data-[state=selected]:bg-muted hover:bg-muted whitespace-nowrap"
+                                                    data-state="false">
+                                                        <td
+                                                            class="p-4 align-middle text-sm last:text-right rtl:last:text-left ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 font-medium text-card-foreground/80">
                                                             <div
-                                                                class="text-sm font-medium text-default-900 capitalize">
-                                                                Marlon
-                                                                Kris</div>
-                                                            <div class="text-xs text-default-400">July 8, 2024</div>
-                                                            <div class="text-xs text-default-400"><svg
-                                                                    xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                    height="24" viewBox="0 0 24 24" fill="none"
-                                                                    stroke="currentColor" stroke-width="2"
-                                                                    stroke-linecap="round" stroke-linejoin="round"
-                                                                    class="w-3 h-3">
-                                                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                                                </svg></div>
-                                                        </div>
-                                                        <div class="mt-1 text-default-600 font-medium ">Aduro benigne
-                                                            claro
-                                                            possimus. Error viridis aveho audacia.</div>
-                                                    </div>
-                                                </div>
-                                                <div class="flex gap-2">
-                                                    <div class="felx-none"><span
-                                                            class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"><span
-                                                                class="flex h-full w-full items-center justify-center rounded-full bg-muted font-semibold text-sm">CS</span></span>
-                                                    </div>
-                                                    <div class="flex-1">
-                                                        <div class="flex items-center gap-2">
-                                                            <div
-                                                                class="text-sm font-medium text-default-900 capitalize">
-                                                                Gerardo Langworth-Harris</div>
-                                                            <div class="text-xs text-default-400">July 8, 2024</div>
-                                                            <div class="text-xs text-default-400"><svg
-                                                                    xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                    height="24" viewBox="0 0 24 24" fill="none"
-                                                                    stroke="currentColor" stroke-width="2"
-                                                                    stroke-linecap="round" stroke-linejoin="round"
-                                                                    class="w-3 h-3">
-                                                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                                                </svg></div>
-                                                        </div>
-                                                        <div class="mt-1 text-default-600 font-medium ">Cur cattus
-                                                            paulatim
-                                                            quasi cura patior alveus. Uter attero argentum synagoga
-                                                            aqua.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="flex gap-2">
-                                                    <div class="felx-none"><span
-                                                            class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"><span
-                                                                class="flex h-full w-full items-center justify-center rounded-full bg-muted font-semibold text-sm">CS</span></span>
-                                                    </div>
-                                                    <div class="flex-1">
-                                                        <div class="flex items-center gap-2">
-                                                            <div
-                                                                class="text-sm font-medium text-default-900 capitalize">
-                                                                Freddie Beahan Sr.</div>
-                                                            <div class="text-xs text-default-400">July 8, 2024</div>
-                                                            <div class="text-xs text-default-400"><svg
-                                                                    xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                    height="24" viewBox="0 0 24 24" fill="none"
-                                                                    stroke="currentColor" stroke-width="2"
-                                                                    stroke-linecap="round" stroke-linejoin="round"
-                                                                    class="w-3 h-3">
-                                                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                                                </svg></div>
-                                                        </div>
-                                                        <div class="mt-1 text-default-600 font-medium ">Tepidus soleo
-                                                            venustas
-                                                            impedit conculco centum acceptus velut defetiscor sit.
-                                                            Sollers
-                                                            maxime colligo possimus ulterius carus pax.</div>
-                                                    </div>
-                                                </div>
-                                                <div class="flex gap-2">
-                                                    <div class="felx-none"><span
-                                                            class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"><span
-                                                                class="flex h-full w-full items-center justify-center rounded-full bg-muted font-semibold text-sm">CS</span></span>
-                                                    </div>
-                                                    <div class="flex-1">
-                                                        <div class="flex items-center gap-2">
-                                                            <div
-                                                                class="text-sm font-medium text-default-900 capitalize">
-                                                                Louis
-                                                                Deckow</div>
-                                                            <div class="text-xs text-default-400">July 8, 2024</div>
-                                                            <div class="text-xs text-default-400"><svg
-                                                                    xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                    height="24" viewBox="0 0 24 24" fill="none"
-                                                                    stroke="currentColor" stroke-width="2"
-                                                                    stroke-linecap="round" stroke-linejoin="round"
-                                                                    class="w-3 h-3">
-                                                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                                                </svg></div>
-                                                        </div>
-                                                        <div class="mt-1 text-default-600 font-medium ">Theatrum atqui
-                                                            apostolus asporto officiis appello cometes. Viridis utroque
-                                                            voluptas.</div>
-                                                    </div>
-                                                </div>
-                                                <div class="flex gap-2">
-                                                    <div class="felx-none"><span
-                                                            class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"><span
-                                                                class="flex h-full w-full items-center justify-center rounded-full bg-muted font-semibold text-sm">CS</span></span>
-                                                    </div>
-                                                    <div class="flex-1">
-                                                        <div class="flex items-center gap-2">
-                                                            <div
-                                                                class="text-sm font-medium text-default-900 capitalize">
-                                                                Moses
-                                                                Jones</div>
-                                                            <div class="text-xs text-default-400">July 8, 2024</div>
-                                                            <div class="text-xs text-default-400"><svg
-                                                                    xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                    height="24" viewBox="0 0 24 24" fill="none"
-                                                                    stroke="currentColor" stroke-width="2"
-                                                                    stroke-linecap="round" stroke-linejoin="round"
-                                                                    class="w-3 h-3">
-                                                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                                                </svg></div>
-                                                        </div>
-                                                        <div class="mt-1 text-default-600 font-medium ">Iure concido
-                                                            adsidue
-                                                            defleo. Apto magni attonbitus libero ara concido adipiscor
-                                                            coniecto
-                                                            suffoco.</div>
-                                                    </div>
-                                                </div>
-                                                <div class="flex gap-2">
-                                                    <div class="felx-none"><span
-                                                            class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"><span
-                                                                class="flex h-full w-full items-center justify-center rounded-full bg-muted font-semibold text-sm">CS</span></span>
-                                                    </div>
-                                                    <div class="flex-1">
-                                                        <div class="flex items-center gap-2">
-                                                            <div
-                                                                class="text-sm font-medium text-default-900 capitalize">
-                                                                Alan
-                                                                Murphy</div>
-                                                            <div class="text-xs text-default-400">July 8, 2024</div>
-                                                            <div class="text-xs text-default-400"><svg
-                                                                    xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                    height="24" viewBox="0 0 24 24" fill="none"
-                                                                    stroke="currentColor" stroke-width="2"
-                                                                    stroke-linecap="round" stroke-linejoin="round"
-                                                                    class="w-3 h-3">
-                                                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                                                </svg></div>
-                                                        </div>
-                                                        <div class="mt-1 text-default-600 font-medium ">Aufero vehemens
-                                                            adiuvo
-                                                            commemoro constans in. Absconditus antepono ocer toties
-                                                            basium
-                                                            teneo
-                                                            desparatus auditor.</div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                                class="flex space-x-3  rtl:space-x-reverse items-center">
+                                                                <span
+                                                                    class=" text-sm  whitespace-nowrap text-card-foreground">{{ $document->file_name}}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td
+                                                            class="p-4 align-middle text-sm text-default-600 last:text-right rtl:last:text-left font-normal ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0">
+                                                            {{ $document->file_type}}</td>
+                                                        <td
+                                                            class="p-4 align-middle text-sm text-default-600 last:text-right rtl:last:text-left font-normal ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0">
+                                                            {{ $document->created_at }}</td>
+                                                        <td
+                                                            class="p-4 align-middle text-sm text-default-600 last:text-right rtl:last:text-left font-normal ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 flex justify-end">
+                                                            <div class="flex space-x-3 rtl:space-x-reverse">
+                                                                <button
+                                                                    class="inline-flex items-center justify-center rounded-md text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none border border-current bg-transparent text-primary hover:text-primary-foreground hover:border-primary hover:bg-primary h-7 w-7"
+                                                                    onclick="window.open('{{ Storage::disk('public')->url('digitizing/'.$document->file_path) }}', '_blank');"
+                                                                    ><svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                        aria-hidden="true" role="img"
+                                                                        class=" h-4 w-4   iconify iconify--heroicons"
+                                                                        width="1em" height="1em"
+                                                                        viewBox="0 0 24 24">
+                                                                        <path fill="none" stroke="currentColor"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" stroke-width="1.5"
+                                                                            d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3">
+                                                                        </path>
+                                                                    </svg></button>
+                                                                    {{-- <button
+                                                                    class="inline-flex items-center justify-center rounded-md text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none border border-current bg-transparent text-destructive hover:text-destructive-foreground hover:border-destructive hover:bg-destructive h-7 w-7"><svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                        aria-hidden="true" role="img"
+                                                                        class=" h-4 w-4   iconify iconify--heroicons"
+                                                                        width="1em" height="1em"
+                                                                        viewBox="0 0 24 24">
+                                                                        <path fill="none" stroke="currentColor"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" stroke-width="1.5"
+                                                                            d="m14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21q.512.078 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48 48 0 0 0-3.478-.397m-12 .562q.51-.088 1.022-.165m0 0a48 48 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a52 52 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a49 49 0 0 0-7.5 0">
+                                                                        </path>
+                                                                    </svg></button> --}}
+                                                                </div>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="flex-none">
-                            <div class="w-full flex items-end gap-4 px-4">
-                                <div class="flex-1">
-                                    <form>
-                                        <div class="flex  gap-1 relative">
-                                            <textarea placeholder="Type your message..." class="bg-default-100 rounded-xl break-words px-3 flex-1 h-10 pt-2 p-1 "
-                                                style="min-height: 40px; max-height: 120px; overflow-y: auto; resize: none;"></textarea><button
-                                                class="inline-flex items-center justify-center text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none text-primary-foreground rounded-full bg-default-100 hover:bg-default-100 h-[42px] w-[42px] p-0 self-end"
-                                                type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                    height="24" viewBox="0 0 24 24" fill="none"
-                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round" class="w-5 h-8 text-primary">
-                                                    <path d="m3 3 3 9-3 9 19-9Z"></path>
-                                                    <path d="M6 12h16"></path>
-                                                </svg></button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div><button type="button"
-                @click="toggle()"
+                <livewire:order-comments orderId="{{$orderDetails->id}}" />
+            </div><button type="button" @click="toggle()"
                 class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none  disabled:pointer-events-none data-[state=open]:bg-secondary"><svg
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

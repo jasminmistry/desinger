@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Order;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\Attributes\On;
@@ -12,8 +13,9 @@ class ShowOrder extends Component
 
     public function render()
     {
-        Log::info($this->orderId);
-        return view('livewire.show-order', ['orderId' => $this->orderId]);
+        $orderDetails = Order::find((int) $this->orderId);
+
+        return view('livewire.show-order', ['orderId' => $this->orderId, 'orderDetails' => $orderDetails]);
     }
 
     #[On('show_order')]

@@ -38,4 +38,9 @@ class Order extends Model
     public function assigned() : HasOne {
         return $this->hasOne(User::class, 'id', 'assigned');
     }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

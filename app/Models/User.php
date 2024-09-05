@@ -48,6 +48,16 @@ class User extends Authenticatable
         ];
     }
 
+    public function getInitialsAttribute(){
+        $name = $this->name;
+        $name_array = explode(' ',trim($name));
+
+        $firstWord = $name_array[0];
+        $lastWord = $name_array[count($name_array)-1];
+
+        return $firstWord[0]."".$lastWord[0];
+    }
+
     public function preference(): HasOne
     {
         return $this->hasOne(Preference::class, 'user_id', 'id');

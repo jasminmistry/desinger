@@ -22,5 +22,5 @@
         "@alpinejs/persist": "^3.14.0",
         "dropzone": "^6.0.0-beta.2"
     },
-    "packageManager": "yarn@4.4.0"
+    "packageManager": "yarn@4.4.1"
 }

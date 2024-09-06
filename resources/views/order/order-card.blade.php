@@ -120,7 +120,7 @@
                                         <line x1="3" x2="3.01" y1="6" y2="6"></line>
                                         <line x1="3" x2="3.01" y1="12" y2="12"></line>
                                         <line x1="3" x2="3.01" y1="18" y2="18"></line>
-                                    </svg>ui &amp; ux
+                                    </svg>{{ $orderDetails->assigned->name ?? '' }}
                                 </div>
                                 <div class="flex items-center gap-1 text-xs text-default-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -130,12 +130,13 @@
                                             stroke-linejoin="round"
                                             d="M10.364 4.51a1.994 1.994 0 0 0-1.945 1.994v35.002a1.995 1.995 0 0 0 1.944 1.994h27.224a1.994 1.994 0 0 0 1.994-1.994V14.472h-7.977a1.995 1.995 0 0 1-1.945-1.995V4.5Zm19.205 0l9.962 9.962m-23.693 8.456h16.274M15.838 34.994h16.274m-16.274-6.033h16.274">
                                         </path>
-                                    </svg>{{ $order->documents->count() }}/5<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    </svg>{{ $order->documents->count() }}
+                                    {{-- /5<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
                                         class="w-3.5 h-3.5 text-default-600">
                                         <path d="m6 9 6 6 6-6"></path>
-                                    </svg>
+                                    </svg> --}}
                                 </div>
                                 <div class="flex items-center gap-1 text-xs text-default-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -146,9 +147,9 @@
                                             stroke-linejoin="round" stroke-width="1.5"
                                             d="M8.625 12a.375.375 0 1 1-.75 0a.375.375 0 0 1 .75 0m0 0H8.25m4.125 0a.375.375 0 1 1-.75 0a.375.375 0 0 1 .75 0m0 0H12m4.125 0a.375.375 0 1 1-.75 0a.375.375 0 0 1 .75 0m0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.8 9.8 0 0 1-2.555-.337A5.97 5.97 0 0 1 5.41 20.97a6 6 0 0 1-.474-.065a4.5 4.5 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25">
                                         </path>
-                                    </svg>05
+                                    </svg>{{ count($order->comments) }}
                                 </div>
-                                <div class="flex items-center gap-1 text-xs text-default-600">
+                                {{-- <div class="flex items-center gap-1 text-xs text-default-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
@@ -158,7 +159,7 @@
                                         <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71">
                                         </path>
                                     </svg>02
-                                </div>
+                                </div> --}}
                                 <div class="flex items-center gap-1 text-xs text-default-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

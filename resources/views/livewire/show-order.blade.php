@@ -177,7 +177,7 @@
                                                         @endforeach
                                                     </select>
                                                     @else
-                                                        <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary bg-opacity-10 text-primary hover:text-primary capitalize">{{ App\Enums\Priority::from($orderDetails->priority)->label() }}</span>
+                                                        <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary bg-opacity-10 text-primary hover:text-primary capitalize">{{ $orderDetails->assigned->name ?? '' }}</span>
                                                     @endcan
                                                 </div>
                                             </div>
@@ -323,7 +323,7 @@
                                                     class="border-b border-default-300 transition-colors data-[state=selected]:bg-muted">
 
                                                     <th
-                                                        class="h-14 px-4 ltr:text-left rtl:text-right ltr:last:text-right rtl:last:text-left align-middle text-sm text-default-800 capitalize ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 font-semibold">
+                                                        class="h-14 px-4 max-w-28 ltr:text-left rtl:text-right ltr:last:text-right rtl:last:text-left align-middle text-sm text-default-800 capitalize ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 font-semibold">
                                                         File Name</th>
                                                     <th
                                                         class="h-14 px-4 ltr:text-left rtl:text-right ltr:last:text-right rtl:last:text-left align-middle font-semibold text-sm text-default-800 capitalize ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0">
@@ -342,11 +342,11 @@
                                                     <tr class="border-b border-default-300 transition-colors data-[state=selected]:bg-muted hover:bg-muted whitespace-nowrap"
                                                         data-state="false">
                                                         <td
-                                                            class="p-4 align-middle text-sm last:text-right rtl:last:text-left ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 font-medium text-card-foreground/80">
+                                                            class="p-4 max-w-28 align-middle text-sm last:text-right rtl:last:text-left ltr:[&amp;:has([role=checkbox])]:pr-0 rtl:[&amp;:has([role=checkbox])]:pl-0 font-medium text-card-foreground/80">
                                                             <div
                                                                 class="flex space-x-3  rtl:space-x-reverse items-center">
                                                                 <span
-                                                                    class=" text-sm  whitespace-nowrap text-card-foreground">{{ $document->file_name }}</span>
+                                                                    class=" text-sm text-wrap break-all whitespace-nowrap text-card-foreground">{{ $document->file_name }}</span>
                                                             </div>
                                                         </td>
                                                         <td

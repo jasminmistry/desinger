@@ -30,7 +30,7 @@
                     class="absolute bottom-0 right-4 md:right-[30%] md:bottom-5 2xl:right-10 w-[100px] ">
                     <img alt="user" loading="lazy" width="117" height="201" decoding="async"
                         data-nimg="1" class="w-full h-full object-cover"
-                        src="{{ asset('storage/admin.png') }}">
+                        src="{{ asset('assets/admin.png') }}">
                 </div>
             </div>
         </div>

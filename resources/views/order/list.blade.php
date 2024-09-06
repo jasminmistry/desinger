@@ -28,7 +28,7 @@
                         </x-dropdown-link>
 
                         <x-dropdown-link :href="route('order.index', ['page'=> request()->get('page'), 'view'=> 'kanban'])">
-                            {{ __('Kanban') }}
+                            {{ __('Card') }}
                         </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>

@@ -11,16 +11,20 @@
                     <div class="text-sm font-medium text-default-600 bg-default-100 py-[2px] px-3 rounded">
                         {{ $orderDetails->service->name }}</div>
                     <div class="w-fit px-1">
-                        <select id="status" name="status"
+                        @can('change order statuses')
+                            <select id="status" name="status" wire:model="status" wire:change="change"
                             class="w-full px-3 flex [&amp;>svg]:h-5 [&amp;>svg]:w-5 justify-between items-center read-only:bg-background disabled:cursor-not-allowed disabled:opacity-50 transition duration-300 border-default-300 text-default-500 focus:outline-none focus:border-default-500/50 disabled:bg-default-200 placeholder:text-accent-foreground/50 [&amp;>svg]:stroke-default-600 border rounded-lg text-sm h-10">
                             @foreach (\App\Enums\OrderStatus::cases() as $status)
                                 <option value="{{ $status->value }}"
-                                    @if ($status->value == $orderDetails->order_status) {{ 'selected=selected' }}
+                                    @if ($status->value == $orderDetails->status) {{ 'selected=selected' }}
                                 @else
                                     {{ '' }} @endif>
                                     {{ $status->label() }}</option>
                             @endforeach
                         </select>
+                        @else
+                            <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary bg-opacity-10 text-primary hover:text-primary capitalize">{{ App\Enums\OrderStatus::from($orderDetails->status)->name }}</span>
+                        @endcan
                         {{-- <button type="button" role="combobox" aria-controls="radix-:r5i:"
                             aria-expanded="false" aria-autocomplete="none" dir="ltr" data-state="closed"
                             data-placeholder=""
@@ -161,31 +165,20 @@
                                                         class="text-sm font-medium text-default-900">Assigned</span>
                                                 </div>
                                                 <div class="flex items-center gap-3">
-                                                    <div
-                                                        class="relative w-max-content flex -space-x-3 avatarGroup items-center">
-                                                        <span
-                                                            class="relative flex shrink-0 overflow-hidden rounded-full w-5 h-5 ring-1 ring-background ring-offset-[2px] ring-offset-background"
-                                                            data-state="closed"><img class="aspect-square h-full w-full"
-                                                                src="/_next/static/media/avatar-7.82cf057d.jpg"></span><span
-                                                            class="relative flex shrink-0 overflow-hidden rounded-full w-5 h-5 ring-1 ring-background ring-offset-[2px] ring-offset-background"
-                                                            data-state="closed"><img class="aspect-square h-full w-full"
-                                                                src="/_next/static/media/avatar-7.82cf057d.jpg"></span><span
-                                                            class="relative flex shrink-0 overflow-hidden rounded-full w-5 h-5 ring-1 ring-background ring-offset-[2px] ring-offset-background"
-                                                            data-state="closed"><img class="aspect-square h-full w-full"
-                                                                src="/_next/static/media/avatar-7.82cf057d.jpg"></span><span
-                                                            class="relative flex shrink-0 overflow-hidden rounded-full ring-1 ring-background ring-offset-[2px] ring-offset-background w-5 h-5"><span
-                                                                class="flex h-full w-full items-center justify-center rounded-full bg-muted text-sm font-normal">+4</span></span>
-                                                    </div>
-                                                    <div class="relative"><button
-                                                            class="h-5 w-5 rounded-full bg-default-100 grid place-content-center"><svg
-                                                                xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                height="24" viewBox="0 0 24 24" fill="none"
-                                                                stroke="currentColor" stroke-width="2"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                class="w-3 h-3 text-primary">
-                                                                <path d="M5 12h14"></path>
-                                                                <path d="M12 5v14"></path>
-                                                            </svg></button></div>
+                                                    @can('assign order')
+                                                    <select id="user_id" name="user_id" wire:model="userId" wire:change="changeAssign"
+                                                        class="w-full px-3 flex [&amp;>svg]:h-5 [&amp;>svg]:w-5 justify-between items-center disabled:cursor-not-allowed disabled:opacity-50 transition duration-300 border-primary text-primary focus:outline-none focus:border-primary-700 disabled:bg-primary/30 disabled:placeholder:text-primary placeholder:text-primary/70 [&amp;>svg]:stroke-primary rounded-lg h-8 text-xs read-only:bg-primary/10">
+                                                        @foreach ($assignedUsers as $user)
+                                                            <option value="{{ $user->id }}"
+                                                                @if ($user->id == $orderDetails->user_id) {{ 'selected=selected' }}
+                                                            @else
+                                                                {{ '' }} @endif>
+                                                                {{ $user->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @else
+                                                        <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary bg-opacity-10 text-primary hover:text-primary capitalize">{{ App\Enums\Priority::from($orderDetails->priority)->label() }}</span>
+                                                    @endcan
                                                 </div>
                                             </div>
                                             <div>
@@ -207,7 +200,8 @@
                                                         class="text-sm font-medium text-default-900">Priority</span>
                                                 </div>
                                                 <div class="w-[100px]">
-                                                    <select id="priority" name="priority"
+                                                    @can('change order statuses')
+                                                    <select id="priority" name="priority" wire:model="priority" wire:change="changePriority"
                                                         class="w-full px-3 flex [&amp;>svg]:h-5 [&amp;>svg]:w-5 justify-between items-center disabled:cursor-not-allowed disabled:opacity-50 transition duration-300 border-primary text-primary focus:outline-none focus:border-primary-700 disabled:bg-primary/30 disabled:placeholder:text-primary placeholder:text-primary/70 [&amp;>svg]:stroke-primary rounded-lg h-8 text-xs read-only:bg-primary/10">
                                                         @foreach (\App\Enums\Priority::cases() as $priority)
                                                             <option value="{{ $priority->value }}"
@@ -217,6 +211,9 @@
                                                                 {{ $priority->label() }}</option>
                                                         @endforeach
                                                     </select>
+                                                    @else
+                                                        <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary bg-opacity-10 text-primary hover:text-primary capitalize">{{ App\Enums\Priority::from($orderDetails->priority)->label() }}</span>
+                                                    @endcan
                                                 </div>
                                             </div>
                                             <div>
@@ -277,7 +274,7 @@
                                                 'livewire/_partials/' .
                                                     strtolower(
                                                         \App\Enums\OrderType::from(
-                                                            $orderDetails->order_type)->label()),
+                                                            $orderDetails->order_type)->name),
                                                 ['orderDetails' => $orderDetails->service]
                                             )
                                         </div>
@@ -402,8 +399,8 @@
                         </div>
                     </div>
                 </div>
-                <livewire:order-comments orderId="{{ $orderDetails->id }}"
-                    wire:key="comment-{{ $orderDetails->id }}" />
+                    <livewire:order-comments orderId="{{ $orderDetails->id }}"
+                        wire:key="comment-{{ $orderDetails->id }}" />
             </div>
         </div>
     @else

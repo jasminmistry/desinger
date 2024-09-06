@@ -8,44 +8,68 @@ use Illuminate\Database\Eloquent\Collection;
 
 class OrderRepository
 {
-    public function todayOrderCount(int $userId): int
+    public function todayOrderCount(?int $userId): int
     {
-        return Order::where('user_id', $userId)->whereDay('created_at', now()->day)->count();
-    }
-
-    public function overDueInvoiceCount(int $userId): int
-    {
-        return Order::where('user_id', $userId)->where('status', \App\Enums\OrderStatus::OVER_DUE)->count();
-    }
-
-    public function overPerMonthCount(int $userId): int
-    {
-        return Order::where('user_id', $userId)->whereMonth('created_at', now()->month)->count();
-    }
-
-    public function completedMonthCount(int $userId): int
-    {
-        return Order::where('user_id', $userId)->where('status', \App\Enums\OrderStatus::COMPLETED)->whereMonth('created_at', now()->month)->count();
-    }
-
-    public function inProgressCount(int $userId): int
-    {
-        return Order::where('user_id', $userId)->where('status', \App\Enums\OrderStatus::IN_PROGRESS)->count();
-    }
-
-    public function pendingInvoiceCount(int $userId): int
-    {
-        return Order::where('user_id', $userId)->where('status', \App\Enums\OrderStatus::PENDING)->count();
-    }
-
-    public function recentOrders(int $userId): Collection
-    {
-        $orderBuilder = Order::with(['documents']);
-        $user = User::find($userId);
-        if ($user->hasPermissionTo('view orders')) {
-        } else if ($user->hasPermissionTo('view own orders')) {
-            $orderBuilder->where('user_id', $user->id);
+        $queryBuilder = Order::whereDay('created_at', now()->day);
+        if ($userId) {
+            $queryBuilder->where('user_id', $userId);
         }
-        return $orderBuilder->orderBy('id', 'desc')->limit(4)->get();
+        return $queryBuilder->count();
+    }
+
+    public function overDueInvoiceCount(?int $userId): int
+    {
+        $queryBuilder = Order::where('status', \App\Enums\OrderStatus::OVER_DUE);
+        if ($userId) {
+            $queryBuilder->where('user_id', $userId);
+        }
+        return $queryBuilder->count();
+
+    }
+
+    public function overPerMonthCount(?int $userId): int
+    {
+        $queryBuilder = Order::whereMonth('created_at', now()->month);
+        if ($userId) {
+            $queryBuilder->where('user_id', $userId);
+        }
+        return $queryBuilder->count();
+    }
+
+    public function completedMonthCount(?int $userId): int
+    {
+        $queryBuilder = Order::where('status', \App\Enums\OrderStatus::COMPLETED)->whereMonth('created_at', now()->month);
+        if ($userId) {
+            $queryBuilder->where('user_id', $userId);
+        }
+        return $queryBuilder->count();
+    }
+
+    public function inProgressCount(?int $userId): int
+    {
+        $queryBuilder = Order::where('status', \App\Enums\OrderStatus::IN_PROGRESS);
+        if ($userId) {
+            $queryBuilder->where('user_id', $userId);
+        }
+        return $queryBuilder->count();
+
+    }
+
+    public function pendingInvoiceCount(?int $userId): int
+    {
+        $queryBuilder = Order::where('status', \App\Enums\OrderStatus::PENDING);
+        if ($userId) {
+            $queryBuilder->where('user_id', $userId);
+        }
+        return $queryBuilder->count();
+    }
+
+    public function recentOrders(?int $userId): Collection
+    {
+        $queryBuilder = Order::with(['documents']);
+        if ($userId) {
+            $queryBuilder->where('user_id', $userId);
+        }
+        return $queryBuilder->orderBy('id', 'desc')->limit(4)->get();
     }
 }

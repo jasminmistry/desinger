@@ -11,11 +11,14 @@
                     </div>
                 </div>
             @endrole
-
             <main>
+            @unlesshasrole('guest')
                 @include('dashboard.statastics')
+            @endunlessrole
                 @include('dashboard.services')
+            @unlesshasrole('guest')
                 @include('dashboard.recent_order')
+            @endunlessrole
             </main>
         </div>
     </div>

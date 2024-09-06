@@ -37,6 +37,10 @@
                 </x-table-td>
                 <x-table-td>
                     <div class="flex space-x-3 rtl:space-x-reverse">
+                        @can(['view orders', 'view own orders'])
+                            <x-a-view
+                                href="javascript:void(0);" @click="$dispatch('show_order', { orderId: '{{ $order->id }}'})"></x-a-view>
+                        @endcan
                         {{-- <x-a-view></x-a-view> --}}
                         @can(['edit orders', 'edit own orders'])
                             <x-a-edit

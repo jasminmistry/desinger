@@ -18,13 +18,13 @@
     @vite(['resources/css/globals.scss', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased theme-blue" x-data="{sidebar: true}">
+<body class="font-sans antialiased theme-blue" x-data="{sidebar: @unlesshasrole('guest') {{'true'}} @else {{'false'}} @endunlessrole}">
     <div class="h-full">
         <!-- Page Heading -->
         @include('layouts.header')
-
+        @unlesshasrole('guest')
         @include('layouts.navigation')
-
+        @endunlessrole
         <!-- Page Content -->
 
         <div class="content-wrapper transition-all duration-150 xl:ml-[272px]" :class="sidebar? 'xl:ml-[248px]' : 'xl:ml-[72px]'">

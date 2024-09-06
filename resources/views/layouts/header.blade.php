@@ -3,7 +3,9 @@
     <div class="xl:mx-10 mx-4">
         <div class="w-full bg-card/90 backdrop-blur-lg md:px-6 px-[15px] py-3 border-b">
             <div class="flex justify-between items-center h-full">
-                <div class="flex items-center md:gap-6 gap-3"><button
+                <div class="flex items-center md:gap-6 gap-3">
+                    @unlesshasrole('guest')
+                    <button
                         class="relative group  disabled:cursor-not-allowed opacity-50" @click="sidebar = !sidebar">
                         <div>
                             <div
@@ -20,7 +22,7 @@
                             </div>
                         </div>
                     </button>
-
+                    @endunlessrole
                 </div>
                 <div class="nav-tools flex items-center  gap-2">
                     <x-dropdown align="right" width="48">

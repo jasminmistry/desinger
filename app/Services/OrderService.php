@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enums\OrderType;
 use App\Models\Order;
+use App\Models\User;
 use App\Repositories\OrderDocumentRepository;
 use App\Repositories\OrderRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -18,38 +19,72 @@ class OrderService
     {
     }
 
-    public function todayOrderCount(int $userId): int
+    public function todayOrderCount(User $user): int
     {
+        $userId = null;
+        if (!$user->hasPermissionTo('view orders')) {
+            $userId = $user->id;
+        }
         return $this->orderRepository->todayOrderCount($userId);
     }
 
-    public function overDueInvoiceCount(int $userId): int
+    public function overDueInvoiceCount(User $user): int
     {
+        $userId = null;
+        if (!$user->hasPermissionTo('view orders')) {
+            $userId = $user->id;
+        }
+
         return $this->orderRepository->overDueInvoiceCount($userId);
     }
 
-    public function overPerMonthCount(int $userId): int
+    public function overPerMonthCount(User $user): int
     {
+        $userId = null;
+        if (!$user->hasPermissionTo('view orders')) {
+            $userId = $user->id;
+        }
+
         return $this->orderRepository->overPerMonthCount($userId);
     }
 
-    public function completedMonthCount(int $userId): int
+    public function completedMonthCount(User $user): int
     {
+        $userId = null;
+        if (!$user->hasPermissionTo('view orders')) {
+            $userId = $user->id;
+        }
+
         return $this->orderRepository->completedMonthCount($userId);
     }
 
-    public function inProgressCount(int $userId): int
+    public function inProgressCount(User $user): int
     {
+        $userId = null;
+        if (!$user->hasPermissionTo('view orders')) {
+            $userId = $user->id;
+        }
+
         return $this->orderRepository->inProgressCount($userId);
     }
 
-    public function pendingInvoiceCount(int $userId): int
+    public function pendingInvoiceCount(User $user): int
     {
+        $userId = null;
+        if (!$user->hasPermissionTo('view orders')) {
+            $userId = $user->id;
+        }
+
         return $this->orderRepository->pendingInvoiceCount($userId);
     }
 
-    public function recentOrders(int $userId): Collection
+    public function recentOrders(User $user): Collection
     {
+        $userId = null;
+        if (!$user->hasPermissionTo('view orders')) {
+            $userId = $user->id;
+        }
+
         return $this->orderRepository->recentOrders($userId);
     }
 

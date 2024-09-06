@@ -92,7 +92,7 @@ class UserController extends Controller
         $validated['role'] = array_filter($validated['role'], function($item) {
             return $item !== RolesEnum::SUPER_ADMIN->value;
         });
-        $user->assignRole($validated['role']);
+        $user->syncRoles($validated['role']);
 
         $user->update();
 

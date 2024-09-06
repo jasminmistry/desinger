@@ -70,30 +70,32 @@
                 </div>
             </div>
         </div>
-        <div class="flex-none">
-            <div class="w-full flex items-end gap-4 px-4">
-                <div class="flex-1">
-                    <form wire:submit="save">
-                        <div class="text-rose-800">@error('comment') <span class="error">{{ $message }}</span> @enderror</div>
-                        <div class="flex  gap-1 relative">
-                            <input type="hidden" name="orderId" value="{{$orderId}}" wire:model="orderId" />
-                            <textarea placeholder="Type your message..." name="comment" wire:model="comment" autocomplete="false"
-                                class="bg-default-100 rounded-xl break-words px-3 flex-1 h-10 pt-2 p-1 "
-                                style="min-height: 40px; max-height: 120px; overflow-y: auto; resize: none;"></textarea><button
-                                class="inline-flex items-center justify-center text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none text-primary-foreground rounded-full bg-default-100 hover:bg-default-100 h-[42px] w-[42px] p-0 self-end"
-                                type="submit"><svg xmlns="http://www.w3.org/2000/svg"
-                                    width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round"
-                                    class="w-5 h-8 text-primary">
-                                    <path d="m3 3 3 9-3 9 19-9Z"></path>
-                                    <path d="M6 12h16"></path>
-                                </svg></button>
-                                <span wire:loading>Saving...</span>
-                        </div>
-                    </form>
+        @if(auth()->user()->can('can edit comment') || (auth()->user()->can('can edit own comment')))
+            <div class="flex-none">
+                <div class="w-full flex items-end gap-4 px-4">
+                    <div class="flex-1">
+                        <form wire:submit="save">
+                            <div class="text-rose-800">@error('comment') <span class="error">{{ $message }}</span> @enderror</div>
+                            <div class="flex  gap-1 relative">
+                                <input type="hidden" name="orderId" value="{{$orderId}}" wire:model="orderId" />
+                                <textarea placeholder="Type your message..." name="comment" wire:model="comment" autocomplete="false"
+                                    class="bg-default-100 rounded-xl break-words px-3 flex-1 h-10 pt-2 p-1 "
+                                    style="min-height: 40px; max-height: 120px; overflow-y: auto; resize: none;"></textarea><button
+                                    class="inline-flex items-center justify-center text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:opacity-50 whitespace-nowrap disabled:pointer-events-none text-primary-foreground rounded-full bg-default-100 hover:bg-default-100 h-[42px] w-[42px] p-0 self-end"
+                                    type="submit"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="w-5 h-8 text-primary">
+                                        <path d="m3 3 3 9-3 9 19-9Z"></path>
+                                        <path d="M6 12h16"></path>
+                                    </svg></button>
+                                    <span wire:loading>Saving...</span>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 </div>

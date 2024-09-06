@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Comment;
+use App\Models\Order;
 use App\Services\CommentService;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
@@ -32,11 +33,15 @@ class OrderComments extends Component
 
     public function save()
     {
+        $order = Order::find($this->orderId);
+        if (!(auth()->user()->can('can edit comment') || (auth()->user()->can('can edit own comment') && $order->user_id = auth()->user()->id))) {
+            abort(403);
+        }
+
         $this->validate();
 
         $this->commentService->create((int) $this->orderId, auth()->user()->id, $this->comment);
         $this->reset('comment');
         $this->dispatch('comment-created');
-
     }
 }

@@ -46,11 +46,13 @@ class DigitizingController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         $user = (auth()->user());
+
         return view('digitizing.create', [
             'preference' => $user->preference()->first(),
+            'isQuote' => $request->input('quote') === 1
         ]);
     }
 

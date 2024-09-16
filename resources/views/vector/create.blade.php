@@ -223,7 +223,9 @@
                                 </button>
                             </div>
                         </div>
-
+                        @if($isQuote)
+                            <input type="hidden" name="is_quote" value="1"/>
+                        @endif
                         <div class="flex-1 w-full">
                             <x-input-error :messages="$errors->get('picture')" class="mt-2" />
                         </div>

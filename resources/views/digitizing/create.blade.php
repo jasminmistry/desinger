@@ -156,7 +156,9 @@
                             </div>
                         </div>
 
-
+                        @if($isQuote)
+                            <input type="hidden" name="is_quote" value="1"/>
+                        @endif
                         @include('digitizing.my-preference')
                     </div>
 

@@ -26,7 +26,7 @@
                     <span
                         class="mt-3 text-sm text-default-700 text-primary-foreground font-medium capitalize relative z-10">
                         {{ __('Place Order') }}</span>
-                    <a href="{{ route('digitizing.create') }}">
+                    <a href="{{ route('digitizing.create', ['quote' => 1]) }}">
                         <div class="flex items-center gap-1"><span
                                 class="text-lg font-semibold text-primary-foreground">{{ __('DIGITIZING QUOTES') }}</span>
                         </div>
@@ -52,7 +52,7 @@
                     <span
                         class="mt-3 text-sm text-default-700 text-primary-foreground font-medium capitalize relative z-10">
                         {{ __('Place Order') }}</span>
-                    <a href="{{ route('vector.create') }}">
+                    <a href="{{ route('vector.create', ['quote' => 1]) }}">
                         <div class="flex items-center gap-1"><span
                                 class="text-lg font-semibold text-primary-foreground">{{ __('VECTOR QUOTES') }}</span>
                         </div>

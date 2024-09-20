@@ -17,4 +17,14 @@ enum OrderStatus: int
             static::COMPLETED => 'Completed',
         };
     }
+
+    public function border(): string
+    {
+        return match ($this) {
+            static::PENDING => 'border-primary',
+            static::IN_PROGRESS => 'border-indigo',
+            static::OVER_DUE => 'border-warning',
+            static::COMPLETED => 'border-success',
+        };
+    }
 }

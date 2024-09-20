@@ -14,7 +14,6 @@
 
     <!-- Scripts -->
     @livewireStyles
-    @livewireScripts
     @vite(['resources/css/globals.scss', 'resources/js/app.js'])
 </head>
 
@@ -39,5 +38,7 @@
     </div>
     <x-slot:footer class="text-sm">
     </x-slot>
+
+    @livewireScriptConfig 
 </body>
 </html>

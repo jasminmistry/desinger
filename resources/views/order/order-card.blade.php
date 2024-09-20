@@ -1,4 +1,4 @@
-<div class="flex" @click="$dispatch('show_order', { orderId: '{{ $order->id }}'})">
+<div class="flex" x-on:click="$dispatch('show_order', { orderId: '{{ $order->id }}'})" x-sort:item="{{$order->id}}">
     <div dir="ltr" class="relative overflow-hidden h-full"
         style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;">
         <style>
@@ -120,7 +120,7 @@
                                         <line x1="3" x2="3.01" y1="6" y2="6"></line>
                                         <line x1="3" x2="3.01" y1="12" y2="12"></line>
                                         <line x1="3" x2="3.01" y1="18" y2="18"></line>
-                                    </svg>{{ $orderDetails->assigned->name ?? '' }}
+                                    </svg>{{ $order->assigned->name ?? '' }}
                                 </div>
                                 <div class="flex items-center gap-1 text-xs text-default-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

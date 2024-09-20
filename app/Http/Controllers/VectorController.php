@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\OrderType;
 use App\Enums\Priority;
+use App\Enums\RolesEnum;
 use App\Http\Requests\StoreVectorRequest;
 use App\Http\Requests\UpdateVectorRequest;
 use App\Models\Order;
@@ -64,6 +65,11 @@ class VectorController extends Controller
         $this->vectorService->create($request, $orderId);
 
         $this->orderDocumentService->uploadDocuments($request->file('picture'), $orderId);
+        $user = auth()->user();
+
+        if ($user->hasRole(RolesEnum::GUEST)) {
+            return redirect(route('dashboard'))->with('status', __("Order created successfully."));
+        }
 
         return redirect(route('order.index'))->with('status', __("Order created successfully."));
     }

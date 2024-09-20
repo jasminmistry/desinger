@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\DigitizingController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderController as CustomerOrderController;
 use App\Http\Controllers\OtherServiceController;
 use App\Http\Controllers\PatchController;
 use App\Http\Controllers\ProfileController;
@@ -24,7 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('other-service', OtherServiceController::class);
     Route::resource('patch', PatchController::class);
     Route::resource('vector', VectorController::class);
-    Route::resource('order', OrderController::class);
+    Route::resource('order', CustomerOrderController::class);
 });
 
+Route::middleware('role:super-admin|admin|qa-manager|designer')->group(function () {
+    Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
+});
 require __DIR__.'/auth.php';

@@ -1,19 +1,12 @@
 import "./bootstrap";
 import Dropzone from "dropzone";
 
-import Alpine from "alpinejs";
-import persist from '@alpinejs/persist';
+import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
+import sort from '@alpinejs/sort'
+ 
+Alpine.plugin(sort);
+Livewire.start();
 
-// window.Alpine = Alpine;
-
-Alpine.plugin(persist)
-Alpine.start();
-
-document.addEventListener('livewire:init', () => {
-    Livewire.on('showOrder', (event) => {
-        console.log("test");
-    });
- });
 const previewNode = document.querySelector("#template");
 if (previewNode) {
     previewNode.id = "";

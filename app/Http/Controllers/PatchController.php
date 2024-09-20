@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\OrderType;
 use App\Enums\Priority;
+use App\Enums\RolesEnum;
 use App\Http\Requests\StorePatchRequest;
 use App\Http\Requests\UpdatePatchRequest;
 use App\Models\Order;
@@ -60,6 +61,11 @@ class PatchController extends Controller
         $this->patchService->create($request, $orderId);
 
         $this->orderDocumentService->uploadDocuments($request->file('picture'), $orderId);
+        $user = auth()->user();
+
+        if ($user->hasRole(RolesEnum::GUEST)) {
+            return redirect(route('dashboard'))->with('status', __("Order created successfully."));
+        }
 
         return redirect(route('order.index'))->with('status', __("Order created successfully."));
     }

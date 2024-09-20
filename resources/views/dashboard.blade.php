@@ -11,6 +11,7 @@
                     </div>
                 </div>
             @endrole
+            <x-auth-session-status class="mb-4" :status="session('status')" />
             <main>
             @unlesshasrole('guest')
                 @include('dashboard.statastics')

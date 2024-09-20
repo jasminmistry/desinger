@@ -19,6 +19,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@alpinejs/sort@npm:^3.14.1":
+  version: 3.14.1
+  resolution: "@alpinejs/sort@npm:3.14.1"
+  checksum: 10c0/7e612175bc10279ff73fbb8d000d666d061311aeefd94d6fb27590b5382d1d80f9b726985244c593fb797dfd0f5be249aeac43d66009f4ae8dfa86c179c69d67
+  languageName: node
+  linkType: hard
+
 "@esbuild/aix-ppc64@npm:0.20.2":
   version: 0.20.2
   resolution: "@esbuild/aix-ppc64@npm:0.20.2"
@@ -1901,6 +1908,7 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@alpinejs/persist": "npm:^3.14.0"
+    "@alpinejs/sort": "npm:^3.14.1"
     "@tailwindcss/forms": "npm:^0.5.2"
     alpinejs: "npm:^3.4.2"
     autoprefixer: "npm:^10.4.2"

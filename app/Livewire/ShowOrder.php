@@ -15,6 +15,7 @@ class ShowOrder extends Component
     public string $status = '';
     public string $priority = '';
     public string $userId = '';
+    public bool $hide = false;
 
     public function render()
     {
@@ -23,12 +24,13 @@ class ShowOrder extends Component
             return $query->whereNotIn('name',[RolesEnum::CUSTOMER->value, RolesEnum::GUEST->value]);
         })->get();
 
-        return view('livewire.show-order', ['orderId' => $this->orderId, 'orderDetails' => $orderDetails, 'assignedUsers' => $assignedUsers]);
+        return view('livewire.show-order', ['orderId' => $this->orderId, 'orderDetails' => $orderDetails, 'assignedUsers' => $assignedUsers, 'hide' => $this->hide]);
     }
 
     #[On('show_order')]
     public function showOrder(string $orderId)
     {
+        $this->hide = false;
         $this->orderId = $orderId;
     }
 
@@ -57,5 +59,10 @@ class ShowOrder extends Component
         $order->save();
 
         $this->dispatch('show_order',$this->orderId);
+    }
+
+    public function closeOrder()
+    {
+        $this->hide = true;
     }
 }

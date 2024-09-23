@@ -20,6 +20,12 @@ class ShowOrder extends Component
     public function render()
     {
         $orderDetails = Order::find((int) $this->orderId);
+        if ($orderDetails) {
+            $this->status = $orderDetails->status;
+            $this->priority = $orderDetails->status;
+            $this->userId = $orderDetails->assigned;
+        }
+        
         $assignedUsers = User::whereHas('roles', function ($query) {
             return $query->whereNotIn('name',[RolesEnum::CUSTOMER->value, RolesEnum::GUEST->value]);
         })->get();
@@ -55,7 +61,7 @@ class ShowOrder extends Component
     public function changeAssign()
     {
         $order = Order::find($this->orderId);
-        $order->user_id = $this->userId;
+        $order->assigned = $this->userId;
         $order->save();
 
         $this->dispatch('show_order',$this->orderId);

@@ -120,32 +120,6 @@
                                 <div data-radix-scroll-area-viewport="" class="h-full w-full rounded-[inherit]"
                                     style="overflow: hidden scroll;">
                                     <div style="min-width: 100%; display: table;">
-                                        {{-- <form class="py-5 px-6 pb-8 border-b border-default-200">
-                                        {{-- <div class="flex items-center gap-1 mb-2"><button type="button"
-                                                role="checkbox" aria-checked="false" data-state="unchecked"
-                                                value="on"
-                                                class="peer group shrink-0 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;_svg]:stroke-primary-foreground border border-default-300 data-[state=checked]:bg-default-300/90 bg-card rounded [&amp;_svg]:h-4 [&amp;_svg]:w-4 w-4 h-4"></button><input
-                                                aria-hidden="true" tabindex="-1" type="checkbox" value="on"
-                                                style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 16px; height: 16px;"><input
-                                                class="h-7 w-full border border-transparent text-sm font-medium text-default-900 rounded-sm focus:border focus:border-default-200 focus:outline-none px-1 focus:bg-default-50 bg-card"
-                                                type="text" name="title"></div>
-                                        <div class="flex gap-1 relative">
-                                            <div class="mt-1"><svg xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
-                                                    role="img"
-                                                    class="w-5 h-5 text-default-900 iconify iconify--heroicons"
-                                                    width="1em" height="1em" viewBox="0 0 24 24">
-                                                    <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5"
-                                                        d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z">
-                                                    </path>
-                                                </svg></div>
-                                            <textarea
-                                                class="w-full h-16 border-none border border-transparent focus:border-default-200 focus:outline-none p-1 text-sm text-default-700 peer bg-card focus:bg-default-50"
-                                                placeholder="Add Task Descriptions" rows="1" name="desc" style="resize: none; overflow-y: hidden;"></textarea>
-                                        </div>
-                                        <div class="flex justify-end"></div>
-                                    </form> --}}
                                         <div class="py-5 px-4 lg:px-6 border-b border-default-200">
                                             <div class="grid  grid-cols-2  md:grid-cols-3 md:gap-2 gap-y-6">
                                                 <div>
@@ -173,7 +147,7 @@
                                                                 class="w-full px-3 flex [&amp;>svg]:h-5 [&amp;>svg]:w-5 justify-between items-center disabled:cursor-not-allowed disabled:opacity-50 transition duration-300 border-primary text-primary focus:outline-none focus:border-primary-700 disabled:bg-primary/30 disabled:placeholder:text-primary placeholder:text-primary/70 [&amp;>svg]:stroke-primary rounded-lg h-8 text-xs read-only:bg-primary/10">
                                                                 @foreach ($assignedUsers as $user)
                                                                     <option value="{{ $user->id }}"
-                                                                        @if ($user->id == $orderDetails->user_id) {{ 'selected=selected' }}
+                                                                        @if ($user->id == $orderDetails->assigned) {{ 'selected' }}
                                                             @else
                                                                 {{ '' }} @endif>
                                                                         {{ $user->name }}</option>

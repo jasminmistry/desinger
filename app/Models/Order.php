@@ -35,7 +35,7 @@ class Order extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
-    public function assigned() : HasOne {
+    public function assignedUser() : HasOne {
         return $this->hasOne(User::class, 'id', 'assigned');
     }
 
